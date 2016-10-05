@@ -2,26 +2,13 @@
     <md-sidenav-layout>
         <md-sidenav #start #sidenav mode="side">
             <!--TODO Apply from css-->
-            <md-card style="background-color: blue;">
+            <md-card style="background-color: #673AB7;">
                 Hello User
             </md-card>
             <md-list>
                 <md-list-item>
                     <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
                     <p>Tracks</p>
-                </md-list-item>
-                <md-list-item>
-                    <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
-                    <p>Playlists</p>
-                </md-list-item>
-                <md-list-item>
-                    <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
-                    <p>Artists</p>
-                </md-list-item>
-                <md-list-item>
-                    <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
-                    <p>Genre</p>
-                    
                 </md-list-item>
             </md-list>
         </md-sidenav>
@@ -31,8 +18,15 @@
             <i class="material-icons">menu</i>
         </button>
         </md-toolbar>
-        <div style="height: 500px">
-        </div>
-
+        
+        <md-tab-group>
+            <md-tab>
+                <template md-tab-label>One</template>
+                <template md-tab-content>
+                    <h1>Some tab content</h1>
+                    <p>...</p>
+                </template>
+            </md-tab>
+        </md-tab-group>
     </md-sidenav-layout>
 </main>
