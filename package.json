@@ -15,14 +15,17 @@
     "@angular/core": "2.0.0",
     "@angular/forms": "2.0.0",
     "@angular/http": "2.0.0",
+    "@angular/material": "^2.0.0-alpha.9-3",
     "@angular/platform-browser": "2.0.0",
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
     "core-js": "^2.4.1",
+    "hammerjs": "^2.0.8",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/hammerjs": "^2.0.33",
     "angular2-template-loader": "^0.4.0",
     "awesome-typescript-loader": "^2.2.4",
     "css-loader": "^0.23.1",

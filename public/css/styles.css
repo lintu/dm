@@ -1,4 +1,10 @@
 body {
-    background: #0147A7;
-    color: #fff;
+    background: #363F45;
+    font-family: 'Roboto',Helvetica,sans-serif;
+}
+.card-area {
+    background-color: chartreuse !important;
+}
+md-sidenav {
+  width: 300px;
 }
