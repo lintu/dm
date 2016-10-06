@@ -7,3 +7,7 @@ angular2 - www.angular.io
 webpack with angular - https://angular.io/docs/ts/latest/guide/webpack.html
 
 angularmaterial2 - https://github.com/angular/material2
+
+Inorder to create custom material theme follow the steps here https://github.com/angular/material2/blob/master/docs/theming.md#defining-a-custom-theme
+
+
