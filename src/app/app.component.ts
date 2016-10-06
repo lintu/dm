@@ -8,5 +8,8 @@ import '../../public/css/material-theme.css';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent { 
-    
+    public pages: Array<string>;
+    constructor() {
+      this.pages = ['Tracks', 'Playlists', 'Artists'];
+    }
 }

@@ -5,27 +5,20 @@
             <md-card style="background-color: #00796B;">
                 This is a card
             </md-card>
-            <md-list>
-                <md-list-item>
+            <md-list *ngFor="let page of pages"> 
+                <md-list-item >
                     <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
-                    <p>Side Menu</p>
+                    <p>{{page}}</p>
                 </md-list-item>
             </md-list>
         </md-sidenav>
-
+ 
+        <!--TODO Make Side menu a separate component-->
         <md-toolbar color="primary">
             <button (click)="sidenav.toggle()">
             <i class="material-icons">menu</i>
         </button>
         </md-toolbar>
-        <md-tab-group>
-            <md-tab>
-                <template md-tab-label>Tab group</template>
-                <template md-tab-content>
-                    <h1>Some tab content</h1>
-                    <p>...</p>
-                </template>
-            </md-tab>
-        </md-tab-group>
-    </md-sidenav-layout>
+        <main-tabs></main-tabs>
+            </md-sidenav-layout>
 </main>
