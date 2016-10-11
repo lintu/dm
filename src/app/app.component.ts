@@ -10,6 +10,6 @@ import '../../public/css/material-theme.css';
 export class AppComponent { 
     public pages: Array<string>;
     constructor() {
-      this.pages = ['Tracks', 'Playlists', 'Artists'];
+      this.pages = ['Tracks', 'Playlists', 'Artists', 'Upload'];
     }
 }

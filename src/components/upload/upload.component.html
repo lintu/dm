@@ -1,0 +1,13 @@
+<input type="file" (change)="fileChangeHandler($event)"> Select file to upload
+<md-card style="max-width: 250px;">
+
+        <md-card-title>{{selectedFileTags.title}}</md-card-title>
+        <md-card-subtitle>{{selectedFileTags.artist}}</md-card-subtitle>
+        <md-card-subtitle>{{selectedFileTags.album}}</md-card-subtitle>
+   
+   <img md-card-image src="{{selectedFileTags.picture}}"  >
+   <md-card-actions>
+        <button md-button (click)="upload()">Upload</button>
+        <button md-button>Select another</button>
+   </md-card-actions>
+</md-card>

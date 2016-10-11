@@ -19,9 +19,18 @@
     "@angular/platform-browser": "2.0.0",
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
+    "@types/request": "0.0.30",
+    "angularfire2": "^2.0.0-beta.5",
+    "btoa": "latest",
     "core-js": "^2.4.1",
+    "express": "latest",
+    "firebase": "^3.4.1",
     "hammerjs": "^2.0.8",
+    "jsmediatags": "^3.3.0",
+    "multer": "latest",
+    "path": "latest",
     "rxjs": "5.0.0-beta.12",
+    "uuid": "latest",
     "zone.js": "^0.6.23"
   },
   "devDependencies": {

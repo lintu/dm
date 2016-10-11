@@ -1,24 +1,23 @@
 <main>
     <md-sidenav-layout>
-        <md-sidenav #start #sidenav mode="side">
+        <md-sidenav #start #mainnav mode="side">
             <!--TODO Apply from css-->
-            <md-card style="background-color: #00796B;">
-                This is a card
-            </md-card>
-            <md-list *ngFor="let page of pages"> 
-                <md-list-item >
+            <login></login>
+            <md-list *ngFor="let page of pages">
+                <md-list-item>
                     <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
                     <p>{{page}}</p>
                 </md-list-item>
             </md-list>
         </md-sidenav>
- 
+
         <!--TODO Make Side menu a separate component-->
         <md-toolbar color="primary">
-            <button (click)="sidenav.toggle()">
-            <i class="material-icons">menu</i>
-        </button>
+            <button (click)="mainnav.toggle()">
+                <i class="material-icons">menu</i>
+            </button>
         </md-toolbar>
         <main-tabs></main-tabs>
-            </md-sidenav-layout>
+        <upload></upload>
+    </md-sidenav-layout>
 </main>

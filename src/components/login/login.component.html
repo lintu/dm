@@ -1,0 +1,10 @@
+<md-card>
+   <md-card-title-group>
+      <img md-card-sm-image src="{{profileImgUrl}}">
+      <md-card-title>{{ username }}</md-card-title>
+      
+   </md-card-title-group>
+   <button type="button" (click)="loginWithGoogle()">Google Login</button>
+	<button type="button" *ngIf="userData.isLoggedIn" (click)="logout()">Logout</button>
+</md-card>
+
