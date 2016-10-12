@@ -9,6 +9,7 @@ import { UploadComponent } from '../components/upload/upload.component';
 import { LoginComponent } from '../components/login/login.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
+import { FirebaseHelperService} from '../services/firebase-helper.service';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyDFPln30pb_nGg5z9dyjqLhxFRQO9CCZRo",
@@ -34,7 +35,7 @@ const myFirebaseAuthConfig = {
     UploadComponent,
     LoginComponent
   ],
-  providers: [UserData, UploadService],
+  providers: [UserData, UploadService, FirebaseHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

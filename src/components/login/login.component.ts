@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+
 import { UserData} from '../../services/user-data.service';
 import { Subscription } from 'rxjs/Subscription';
+import { FirebaseHelperService } from '../../services/firebase-helper.service';
 
 
 @Component({
@@ -12,15 +13,13 @@ export class LoginComponent implements OnDestroy{
     username: string;
     profileImgUrl: string;
     private loginSubscription: Subscription;
-    constructor(private af: AngularFire, private userData: UserData) {
-        this.loginSubscription = this.af.auth.subscribe(auth => {
-            if(auth) {
-                userData.setUserId(auth.auth['uid']);
-                this.username = auth.auth['displayName'];
-                this.profileImgUrl = auth.auth['photoURL'];
+    constructor(private userData: UserData, public firebase:FirebaseHelperService) {
+        this.loginSubscription = this.firebase.loginSubject$.subscribe(loginDetails => {
+            if(loginDetails['isLoggedIn']) {
+                this.username = loginDetails['displayName'];
+                this.profileImgUrl = loginDetails['photoURL'];
             } else {
                 this.username = 'Guest user';
-                userData.setUserId('');
             }
         });
     }

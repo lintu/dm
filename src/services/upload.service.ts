@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { UserData } from './user-data.service';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Song } from '../components/songs/song';
 
 //TODO : upload progress, scope inside promise function, image extraction
 
 
 @Injectable()
 export class UploadService {
+    newSongAdded$: Subject<Song>;
     constructor(public userData: UserData) {
+        this.newSongAdded$ = new Subject<Song>();
     }
 
     upload(file: File): Promise<Object> {
@@ -25,11 +28,12 @@ export class UploadService {
             xhr.open('post', 'http://localhost:90/upload?userId='+ userId+ '', true);
             xhr.send(fd);
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange =  ()=> {
                 if(xhr.readyState === XMLHttpRequest.DONE) {
-                    debugger;
                     if(xhr.status === 200) {
-                        resolve(JSON.parse(xhr.response));
+                        var song = new Song(JSON.parse(xhr.response));
+                        this.newSongAdded$.next(song);
+                        resolve(song);
                     } else {
                         reject(xhr.response);
                     }

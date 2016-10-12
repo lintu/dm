@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TagReaderService } from '../../services/tag-reader.service'; 
 import { UploadService } from '../../services/upload.service'; 
 import { UserData } from '../../services/user-data.service';
+import { Song} from '../../components/songs/song';
 
 @Component({
     selector: 'upload',
@@ -33,8 +34,9 @@ export class UploadComponent implements OnInit {
 
     upload() {
         if(this.selectedFile) {
-            this.uploadService.upload(this.selectedFile).then((response)=> {
-                var songDetails = response['tags'];
+            this.uploadService.upload(this.selectedFile).then((song)=> {
+                //do stuff with song if required
+                
                 //upload success
                 //create an observable notifying new file uploaded
                 //create a firebase service which will subscribe to this event
