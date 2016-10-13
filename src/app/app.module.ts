@@ -3,13 +3,14 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 import { MaterialModule, MdListModule } from '@angular/material';
-import { SideMenuComponent } from '../components/sidemenu/sidemenu.component';
 import { MainTabsComponent } from '../components/maintabs/maintabs.component';
 import { UploadComponent } from '../components/upload/upload.component';
 import { LoginComponent } from '../components/login/login.component';
+import { TracksComponent } from '../components/tracks/tracks.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
 import { FirebaseHelperService} from '../services/firebase-helper.service';
+import { SongService } from '../services/song.service';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyDFPln30pb_nGg5z9dyjqLhxFRQO9CCZRo",
@@ -30,12 +31,12 @@ const myFirebaseAuthConfig = {
   ],
   declarations: [
     AppComponent,
-    SideMenuComponent,
     MainTabsComponent,
     UploadComponent,
-    LoginComponent
+    LoginComponent,
+    TracksComponent
   ],
-  providers: [UserData, UploadService, FirebaseHelperService],
+  providers: [UserData, UploadService, FirebaseHelperService, SongService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

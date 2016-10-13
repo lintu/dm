@@ -1,15 +1,22 @@
 <md-tab-group>
-    <md-tab *ngFor="let tab of tabs">
-        <template md-tab-label>{{tab}}</template>
+    <md-tab >
+        <template md-tab-label>Tracks</template>
         <template md-tab-content>
-            <md-grid-list cols="8" rowHeight="100px">
-                <md-grid-tile *ngFor="let tile of tiles" 
-                    [colspan]="tile.cols" 
-                    [rowspan]="tile.rows" 
-                    [style.background]="tile.color">
-                    {{tile.text}}
-                </md-grid-tile>
-            </md-grid-list>
+            <tracks></tracks>
         </template>
     </md-tab>
+    <md-tab >
+        <template md-tab-label>Playlists</template>
+        <template md-tab-content>
+            Playlists
+        </template>
+    </md-tab>
+    <md-tab >
+        <template md-tab-label>Artists</template>
+        <template md-tab-content>
+            Artists
+        </template>
+    </md-tab>
+
+    
 </md-tab-group>

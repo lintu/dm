@@ -1,0 +1,14 @@
+
+	<div class='md-padding' layout="row" layout-wrap>
+        <md-card style="width: 300px;" *ngFor="let track of trackList">
+          <img src="{{track.thumbUrl}}" class="md-card-image" alt="user avatar" width="280">
+          <md-card-content>
+            <h2>{{track.title}}</h2>
+            <p>{{track.artist}}</p>
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="end center">
+            <button md-button>LIKE</button>
+            <button md-button>LIKE</button>
+          </div>
+        </md-card>
+      </div>

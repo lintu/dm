@@ -8,9 +8,9 @@ import { Song } from '../components/songs/song';
 
 @Injectable()
 export class UploadService {
-    newSongAdded$: Subject<Song>;
+    newSongUploaded$: Subject<Song>; // used in firebase helper service
     constructor(public userData: UserData) {
-        this.newSongAdded$ = new Subject<Song>();
+        this.newSongUploaded$ = new Subject<Song>();
     }
 
     upload(file: File): Promise<Object> {
@@ -31,8 +31,9 @@ export class UploadService {
             xhr.onreadystatechange =  ()=> {
                 if(xhr.readyState === XMLHttpRequest.DONE) {
                     if(xhr.status === 200) {
+                        debugger;
                         var song = new Song(JSON.parse(xhr.response));
-                        this.newSongAdded$.next(song);
+                        this.newSongUploaded$.next(song);
                         resolve(song);
                     } else {
                         reject(xhr.response);
