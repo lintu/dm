@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { UploadService } from '../services/upload.service';
 import { UserData } from '../services/user-data.service';
-import { Song } from '../components/songs/song';
+import { Track } from '../classes/track';
 
 @Injectable()
 export class FirebaseHelperService {
@@ -13,16 +13,16 @@ export class FirebaseHelperService {
     public loginSubscription: Subscription;
     public userSongsSubscription: Subscription;
     public loginSubject$: Subject<Object>; // used in login component, songService
-    public userSongsSubject$: Subject<Array<Object>>;
+    public userSongsSubject$: Subject<Array<Track>>;
     userItems$: FirebaseObjectObservable<any>;
     defaultList$: FirebaseListObservable<any>;
     allItems$: FirebaseObjectObservable<any>;
 
     constructor(public uploadService: UploadService, private af: AngularFire, private userData: UserData) {
         this.loginSubject$ = new Subject<Object>();
-        this.userSongsSubject$ = new Subject<Array<Object>>();
+        this.userSongsSubject$ = new Subject<Array<Track>>();
         this.loginSubscription = this.af.auth.subscribe(auth => {
-            debugger;
+            
             if(auth) {
                 userData.setUserId(auth.auth['uid']);
                 auth.auth['isLoggedIn'] = true;
@@ -39,7 +39,7 @@ export class FirebaseHelperService {
         });
     }
 
-    private addNewSong(song: Song) {
+    private addNewSong(song: Track) {
         this.allItems$ = this.af.database.object('/all-songs/' + song.songId + '/');
         this.allItems$.set(song);
         this.userItems$ = this.af.database.object('/user-data/'+ this.userData.getUserId() + '/songs/' + song.songId + '/');

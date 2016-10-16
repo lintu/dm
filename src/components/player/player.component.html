@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col s12">
+		<p class="range-field">
+			<input type="range" id="test5" min="0" [max]="activeTrack.duration" [value] ="currentTrackPosition" />
+		</p>
+	</div>
+	<div class="col s12">
+		<md-card >
+
+			<md-card-title-group>
+				<img md-card-sm-image src="{{activeTrack.thumbUrl}}">
+				<md-card-title>{{activeTrack.title}}</md-card-title>
+				<md-card-subtitle>{{activeTrack.artist}}</md-card-subtitle>
+
+			</md-card-title-group>
+		</md-card>
+	</div>
+	
+</div>
+

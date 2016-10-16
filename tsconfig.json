@@ -8,9 +8,10 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
-  },
-  "types": [
-      "firebase"
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "firebase",
+      "hammerjs"
     ]
+  }
 }

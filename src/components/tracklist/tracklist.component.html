@@ -1,0 +1,17 @@
+<md-grid-list cols="4">
+	<md-grid-tile *ngFor="let track of trackList" [style.background-image]="track.thumbUrl | safeurl" class="track-grid-tile">
+		<md-card class="track-grid-card">
+			<div class="trip-grid-content">
+        <md-card-header class="track-grid-header">
+        <md-card-title>{{track.title}}</md-card-title>
+          <md-card-subtitle>{{track.artist}}</md-card-subtitle>
+        </md-card-header>
+        <md-card-actions class="track-grid-actions" >
+         
+
+          <button md-mini-fab (click)="playTrack(track)" ><md-icon>play_arrow</md-icon></button>
+        </md-card-actions>
+        </div>
+		</md-card>
+	</md-grid-tile>
+</md-grid-list>

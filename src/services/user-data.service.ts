@@ -1,7 +1,3 @@
-/**
- * Created by Lintu on 15-08-2016.
- */
-
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 

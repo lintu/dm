@@ -6,11 +6,15 @@ import { MaterialModule, MdListModule } from '@angular/material';
 import { MainTabsComponent } from '../components/maintabs/maintabs.component';
 import { UploadComponent } from '../components/upload/upload.component';
 import { LoginComponent } from '../components/login/login.component';
-import { TracksComponent } from '../components/tracks/tracks.component';
+import { TrackListComponent } from '../components/tracklist/tracklist.component';
+import { PlayerComponent } from '../components/player/player.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
 import { FirebaseHelperService} from '../services/firebase-helper.service';
-import { SongService } from '../services/song.service';
+import { TrackManagerService } from '../services/track-manager.service';
+import { DataService } from '../services/data.service';
+
+import { SafeUrlPipe } from '../pipes/safestyle.pipe';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyDFPln30pb_nGg5z9dyjqLhxFRQO9CCZRo",
@@ -34,9 +38,17 @@ const myFirebaseAuthConfig = {
     MainTabsComponent,
     UploadComponent,
     LoginComponent,
-    TracksComponent
+    TrackListComponent,
+    PlayerComponent,
+    SafeUrlPipe
   ],
-  providers: [UserData, UploadService, FirebaseHelperService, SongService],
+  providers: [
+    UserData, 
+    UploadService, 
+    FirebaseHelperService, 
+    TrackManagerService, 
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

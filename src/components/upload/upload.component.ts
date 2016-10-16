@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TagReaderService } from '../../services/tag-reader.service'; 
 import { UploadService } from '../../services/upload.service'; 
 import { UserData } from '../../services/user-data.service';
-import { Song} from '../../components/songs/song';
+import { Track } from '../../classes/track';
 
 @Component({
     selector: 'upload',

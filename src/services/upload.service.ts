@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { UserData } from './user-data.service';
 import { Subject } from 'rxjs/Subject';
-import { Song } from '../components/songs/song';
+import { Track } from '../classes/track';
 
 //TODO : upload progress, scope inside promise function, image extraction
 
 
 @Injectable()
 export class UploadService {
-    newSongUploaded$: Subject<Song>; // used in firebase helper service
+    newSongUploaded$: Subject<Track>; // used in firebase helper service
     constructor(public userData: UserData) {
-        this.newSongUploaded$ = new Subject<Song>();
+        this.newSongUploaded$ = new Subject<Track>();
     }
 
     upload(file: File): Promise<Object> {
@@ -31,8 +31,8 @@ export class UploadService {
             xhr.onreadystatechange =  ()=> {
                 if(xhr.readyState === XMLHttpRequest.DONE) {
                     if(xhr.status === 200) {
-                        debugger;
-                        var song = new Song(JSON.parse(xhr.response));
+                        
+                        var song = new Track(JSON.parse(xhr.response));
                         this.newSongUploaded$.next(song);
                         resolve(song);
                     } else {

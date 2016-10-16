@@ -8,3 +8,42 @@ body {
 md-sidenav {
   width: 300px;
 }
+
+/*Upload Component*/
+.upload-card {
+    max-width: 250px;
+}
+/*For grid tile track item*/
+.track-grid-tile {
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.track-grid-card {
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    padding: 0;
+}
+.track-grid-content {
+    padding: 10px;
+    
+}
+.track-grid-header {
+    margin: 0px;
+}
+.track-grid-actions {
+    position: absolute;
+    right: 5%;
+    bottom: 0%;
+    margin:0px;
+}
+/*Player related*/
+.player {
+    position: fixed;
+    bottom: 0px;
+    height: 30%;
+    width: 100%;
+    border: 1px solid #363F45;
+    padding-right: 15px;
+    box-sizing: border-box;
+}

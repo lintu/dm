@@ -1,4 +1,4 @@
-export class Song {
+export class Track {
     public title: string = '';
     public album: string = '';
     public size: number = 0;
@@ -7,7 +7,6 @@ export class Song {
     public thumbUrl: string = '';
     public year: string = '';
     public artist: string = '';
-    public duration: number = 0;
     
     constructor(songDetails?:any) {
         if(songDetails) {
@@ -23,18 +22,13 @@ export class Song {
     }
 }
 
-export class ActiveSong extends Song{
-    public startTime: number;
-    public currentTime: number;
-    public playListId: string;
-    public songHistoryIndex: number;
+export class ActiveTrack extends Track{
+    public duration: number;
     public durationText: string;
-    constructor() {
-        super();
-        this.startTime = 0;
-        this.currentTime = 0;
-        this.playListId = 'default';
-        this.songHistoryIndex = -1;
-        this.durationText = '';
+    
+    constructor(track?: Track) {
+        super(track);
+        this.duration = 0;
+        this.durationText = "00:00"
     }
 }
