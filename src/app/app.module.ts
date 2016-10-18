@@ -15,6 +15,7 @@ import { TrackManagerService } from '../services/track-manager.service';
 import { DataService } from '../services/data.service';
 
 import { SafeUrlPipe } from '../pipes/safestyle.pipe';
+import { SecondsToDurationPipe } from '../pipes/seconds-to-duration.pipe';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyDFPln30pb_nGg5z9dyjqLhxFRQO9CCZRo",
@@ -40,7 +41,8 @@ const myFirebaseAuthConfig = {
     LoginComponent,
     TrackListComponent,
     PlayerComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    SecondsToDurationPipe
   ],
   providers: [
     UserData, 

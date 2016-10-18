@@ -1,5 +1,5 @@
-<main>
-    <md-sidenav-layout>
+<main style="height: 100%">
+    <md-sidenav-layout style="height: 100%">
         <md-sidenav #start #mainnav mode="side">
             <!--TODO Apply from css-->
             <login></login>
@@ -13,13 +13,13 @@
 
         <!--TODO Make Side menu a separate component-->
         <md-toolbar color="primary">
-            <button (click)="mainnav.toggle()">
+            <button class="btn" (click)="mainnav.toggle()">
                 <i class="material-icons">menu</i>
             </button>
         </md-toolbar>
         <main-tabs></main-tabs>
         <!--<upload></upload>-->
-        
+         
     </md-sidenav-layout>
-    <player class="player"></player>
+   <player class="player"></player>
 </main>

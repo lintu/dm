@@ -35,6 +35,7 @@ export class UploadComponent implements OnInit {
     upload() {
         if(this.selectedFile) {
             this.uploadService.upload(this.selectedFile).then((song)=> {
+               alert('success');
                 //do stuff with song if required
                 
                 //upload success

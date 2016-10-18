@@ -1,20 +1,30 @@
-<div class="row">
+<div class="row player-row">
 	<div class="col s12">
-		<p class="range-field">
-			<input type="range" id="test5" min="0" [max]="activeTrack.duration" [value] ="currentTrackPosition" />
-		</p>
-	</div>
-	<div class="col s12">
-		<md-card >
-
-			<md-card-title-group>
-				<img md-card-sm-image src="{{activeTrack.thumbUrl}}">
-				<md-card-title>{{activeTrack.title}}</md-card-title>
-				<md-card-subtitle>{{activeTrack.artist}}</md-card-subtitle>
-
-			</md-card-title-group>
-		</md-card>
-	</div>
-	
+    <div class="card horizontal player-card">
+      <div class="card-image">
+        <img src="{{activeTrack.thumbUrl}}" height="150" width="150">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <input #seeker type="range" min="0" [max]="activeTrack.duration" [value] ="currentTrackPosition" (change)="trackPositionChanged(seeker.value)"/>
+		  {{currentTrackPosition | secondsToDuration }} | {{activeTrack.durationText}}
+		</div>
+        <div class="card-action">
+			<button class="btn" type="button" (click)="playPreviousTrack()">
+    			<i class="material-icons center">skip_previous</i>
+			</button>
+          	<button class="btn" type="button" *ngIf="isPaused" (click)="resumeTrack()">
+    			<i class="material-icons center">play_arrow</i>
+			</button>
+          	<button class="btn" type="button" *ngIf="!isPaused" (click)="pauseTrack()">
+    			<i class="material-icons center">pause</i>
+			</button>
+			<button class="btn" type="button" (click)="playNextTrack()">
+    			<i class="material-icons center">skip_next</i>
+			</button>
+		 </div>
+      </div>
+    </div>
+</div>
 </div>
 

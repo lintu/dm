@@ -31,10 +31,16 @@ export class WebAudioHelperService {
         
         return promise;
     }
-    public startSourceNode(startFrom: number) {
+    startSourceNode(startFrom: number) {
+        this.stopSourceNode();
         this.sourceNode = WebAudioHelperService.audioContext.createBufferSource();
         this.sourceNode.buffer = this.audioBuffer;
         this.sourceNode.connect(WebAudioHelperService.audioContext.destination);
         this.sourceNode.start(0, startFrom);
+    }
+    stopSourceNode() {
+        if (this.sourceNode.buffer) {
+            this.sourceNode.stop();
+        }
     }
 }

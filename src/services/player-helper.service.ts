@@ -14,7 +14,14 @@ export class PlayerHelperService {
         this.startTime = 0;
         this.trackPositionChanged$ = new Subject<number>();
     }
+
+    stopTracking() {
+        if(this.trackTimer) {
+            clearInterval(this.trackTimer);
+        }
+    }
     startTracking(startFrom: number) {
+        this.stopTracking();
         this.startTime = WebAudioHelperService.audioContext.currentTime - startFrom;
         this.trackPosition = Math.floor(WebAudioHelperService.audioContext.currentTime - this.startTime);
         this.trackTimer = setInterval(()=> {

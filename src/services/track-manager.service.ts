@@ -26,7 +26,6 @@ export class TrackManagerService {
                 this.startUserTracksSubscription();
             }
             else {
-                this.userTracks = [];
                 this.stopUserTracksSubscription();
             }
         });
@@ -38,7 +37,8 @@ export class TrackManagerService {
     }
 
     private stopUserTracksSubscription() {
-        this.userTrackListChangeSubject$.next();
+        this.userTracks = [];
+        this.userTrackListChangeSubject$.next(this.userTracks);
         this.userTracksSubscription.unsubscribe();
     }
     
