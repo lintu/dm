@@ -1,7 +1,8 @@
-<main style="height: 100%">
+<!--use from materialize btn-->
+
+<main style="height: 100%;">
     <md-sidenav-layout style="height: 100%">
         <md-sidenav #start #mainnav mode="side">
-            <!--TODO Apply from css-->
             <login></login>
             <md-list *ngFor="let page of pages">
                 <md-list-item>
@@ -12,14 +13,13 @@
         </md-sidenav>
 
         <!--TODO Make Side menu a separate component-->
-        <md-toolbar color="primary">
+        <md-toolbar color="primary" class="header-container">
             <button class="btn" (click)="mainnav.toggle()">
                 <i class="material-icons">menu</i>
             </button>
         </md-toolbar>
         <main-tabs></main-tabs>
         <!--<upload></upload>-->
-         
+        <player></player>
     </md-sidenav-layout>
-   <player class="player"></player>
 </main>
