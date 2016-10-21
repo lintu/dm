@@ -8,6 +8,7 @@ import { Track, ActiveTrack } from '../classes/track';
 export class TrackManagerService {
 
     public userTracksSubscription: Subscription; 
+    public userPlaylistSubscription: Subscription; 
     public loginSubscription: Subscription;
     public userTrackListChangeSubject$: Subject<Array<Track>>;
     public activeTrackChangeSubject$: Subject<ActiveTrack>;
@@ -15,15 +16,20 @@ export class TrackManagerService {
     public userTracks: Array<Track>;
     public activeTrack: ActiveTrack;
 
+    public activePlaylist: string;
+
     constructor(public firebaseHelper: FirebaseHelperService) {
         this.userTracks = [];
         this.userTracksSubscription = new Subscription();
+        this.userPlaylistSubscription = new Subscription();
         this.userTrackListChangeSubject$ = new Subject<Array<Track>>();
         this.activeTrackChangeSubject$ = new Subject<ActiveTrack>();
-        
+        this.activePlaylist = 'default';
+
         this.loginSubscription = this.firebaseHelper.loginSubject$.subscribe((loginDetails) => {
             if(loginDetails['isLoggedIn']) {
                 this.startUserTracksSubscription();
+                this.startUserPlaylistSubscription();
             }
             else {
                 this.stopUserTracksSubscription();
@@ -44,6 +50,13 @@ export class TrackManagerService {
     
     private startUserTracksSubscription() {
         this.userTracksSubscription = this.firebaseHelper.userSongsSubject$.subscribe((userSongs) => {
+            this.userTracks = userSongs;
+            this.userTrackListChangeSubject$.next(this.userTracks);
+        });
+    }
+
+    private startUserPlaylistSubscription() {
+        this.userPlaylistSubscription = this.firebaseHelper.userSongsSubject$.subscribe((userSongs) => {
             this.userTracks = userSongs;
             this.userTrackListChangeSubject$.next(this.userTracks);
         });

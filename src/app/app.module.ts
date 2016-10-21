@@ -8,11 +8,13 @@ import { UploadComponent } from '../components/upload/upload.component';
 import { LoginComponent } from '../components/login/login.component';
 import { TrackListComponent } from '../components/tracklist/tracklist.component';
 import { PlayerComponent } from '../components/player/player.component';
+import { TodoComponent } from '../components/todo/todo.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
 import { FirebaseHelperService} from '../services/firebase-helper.service';
 import { TrackManagerService } from '../services/track-manager.service';
 import { DataService } from '../services/data.service';
+import { TodoService } from '../services/todo.service';
 
 import { SafeUrlPipe } from '../pipes/safestyle.pipe';
 import { SecondsToDurationPipe } from '../pipes/seconds-to-duration.pipe';
@@ -41,6 +43,7 @@ const myFirebaseAuthConfig = {
     LoginComponent,
     TrackListComponent,
     PlayerComponent,
+    TodoComponent,
     SafeUrlPipe,
     SecondsToDurationPipe
   ],
@@ -49,7 +52,8 @@ const myFirebaseAuthConfig = {
     UploadService, 
     FirebaseHelperService, 
     TrackManagerService, 
-    DataService
+    DataService,
+    TodoService
   ],
   bootstrap: [AppComponent]
 })

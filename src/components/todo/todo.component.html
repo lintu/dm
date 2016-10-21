@@ -1,0 +1,33 @@
+
+
+<md-nav-list>
+    <md-list-item>
+        <input #newTask placeholder="Add new" />
+            <button md-fab (click)="addNewTodo(newTask.value); newTask.value='';">
+                <md-icon class="md-24">add</md-icon>
+            </button>
+    </md-list-item>
+    
+    <ul class="collection with-header">
+        
+        <li *ngFor="let todo of todoList" class="collection-item">
+            
+            <div>
+                <a href="#!" (click)="removeTodo(todo)" class="">
+                    <i class="material-icons">remove</i>
+                </a>
+                <md-checkbox [checked]="todo.status"
+                 (change)="changeStatus(todo)">
+                    {{todo.title.split('-')[0]}}
+                </md-checkbox>
+               
+                <span class="new badge" data-badge-caption="">{{todo.sprint}}</span>
+            </div>
+        </li>
+        
+      </ul>
+
+
+
+    
+</md-nav-list>
