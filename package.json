@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Music",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --port 80",
+    "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
     "postinstall": "typings install"
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "2.0.0",
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
+    "@types/hammerjs": "^2.0.33",
     "@types/request": "0.0.30",
     "angularfire2": "^2.0.0-beta.5",
     "btoa": "latest",

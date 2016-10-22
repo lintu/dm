@@ -15,7 +15,7 @@ import { FirebaseHelperService} from '../services/firebase-helper.service';
 import { TrackManagerService } from '../services/track-manager.service';
 import { DataService } from '../services/data.service';
 import { TodoService } from '../services/todo.service';
-
+import 'hammerjs'; 
 import { SafeUrlPipe } from '../pipes/safestyle.pipe';
 import { SecondsToDurationPipe } from '../pipes/seconds-to-duration.pipe';
 

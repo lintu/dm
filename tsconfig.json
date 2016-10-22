@@ -9,6 +9,7 @@
     "removeComments": false,
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": [ "../node_modules/@types" ], 
     "types": [
       "firebase",
       "hammerjs"

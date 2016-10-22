@@ -1,25 +1,25 @@
 <!--use from materialize btn-->
 
 <main style="height: 100%;">
-    <md-sidenav-layout style="height: 100%">
-        <md-sidenav #start #mainnav mode="side">
-            <login></login>
-            <md-list *ngFor="let page of pages">
-                <md-list-item>
-                    <md-icon class="md-default-theme" class="material-icons">&#xE0C9;</md-icon>
-                    <p>{{page}}</p>
-                </md-list-item>
-            </md-list>
-        </md-sidenav>
+	<md-sidenav-layout style="height: 100%">
+		<md-sidenav #start #mainnav mode="side">
+			<login></login>
+			<md-nav-list>
+				<a md-list-item *ngFor="let page of pages; let i = index;" (click)="pageSelected(i);mainnav.toggle()"> {{ page }} </a>
+			</md-nav-list>
+		</md-sidenav>
 
-        <!--TODO Make Side menu a separate component-->
-        <md-toolbar color="primary" class="header-container">
-            <button class="btn" (click)="mainnav.toggle()">
+		<!--TODO Make Side menu a separate component-->
+		<md-toolbar color="primary">
+			<button class="btn" (click)="mainnav.toggle()">
                 <i class="material-icons">menu</i>
             </button>
-        </md-toolbar>
-        <main-tabs></main-tabs>
-        <!--<upload></upload>-->
-        <player></player>
-    </md-sidenav-layout>
+			<!-- This fills the remaining space of the current row -->
+			<span class="fill-space"></span>
+            <img src="../../resources/logo.png" style="height:100%;">
+		</md-toolbar>
+		<main-tabs [selectedTab]="selectedPage"></main-tabs>
+		<!--<upload></upload>-->
+		<player></player>
+	</md-sidenav-layout>
 </main>

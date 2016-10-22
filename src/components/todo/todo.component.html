@@ -1,6 +1,6 @@
 
 
-<md-nav-list>
+<md-nav-list style="height: 100%;">
     <md-list-item>
         <input #newTask placeholder="Add new" />
             <button md-fab (click)="addNewTodo(newTask.value); newTask.value='';">
@@ -8,7 +8,7 @@
             </button>
     </md-list-item>
     
-    <ul class="collection with-header">
+    <ul class="collection" style="height: 70%; overflow-y: scroll;">
         
         <li *ngFor="let todo of todoList" class="collection-item">
             

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate } from '@angular/core';
 import { ActiveTrack} from '../../classes/track';
 import { TrackManagerService} from '../../services/track-manager.service';
 import { DataService} from '../../services/data.service';
@@ -10,7 +10,19 @@ import { Subscription} from 'rxjs/Subscription';
 @Component({
     selector: 'player',
     templateUrl: 'player.component.html',
-    providers: [WebAudioHelperService, PlayerHelperService]
+    providers: [WebAudioHelperService, PlayerHelperService],
+    animations: [
+    trigger('visibilityState', [
+      state('hide', style({
+        bottom: '-20%'
+      })),
+      state('show',   style({
+        bottom: '0%'
+      })),
+      transition('hide => show', animate('500ms ease-in')),
+      transition('show => hide', animate('100ms ease-out'))
+    ])
+  ]
 })
 export class PlayerComponent implements OnInit, OnDestroy {
     public activeTrack: ActiveTrack;
@@ -19,32 +31,41 @@ export class PlayerComponent implements OnInit, OnDestroy {
     public activeTrackChangedSubscription: Subscription;
     public trackPlayEndedSubscription: Subscription;
     public isPaused: Boolean;
+    public visibilityState: string;
+    public trackVolume: number;
+
     constructor(
         public trackManager: TrackManagerService, 
         public dataService: DataService, 
         public webAudioHelper: WebAudioHelperService,
         public playerHelper: PlayerHelperService,
     ) {
+        this.trackVolume = 10;
         this.currentTrackPosition = 0;
         this.activeTrack = new ActiveTrack();
         this.trackPositionChangedSubscription = new Subscription();
         this.activeTrackChangedSubscription = new Subscription();
         this.trackPlayEndedSubscription = new Subscription();
         this.isPaused = true;
+        this.visibilityState = 'hide';
     }
 
     ngOnInit() { 
         this.activeTrackChangedSubscription = this.trackManager.activeTrackChangeSubject$.subscribe((activeTrack)=>{
+            this.visibilityState = 'show';
             this.activeTrack = activeTrack;
             this.playActiveTrack();
         });
         this.trackPlayEndedSubscription = this.playerHelper.trackPlayEnded$.subscribe(()=> {
             this.resetTrackVariables();
-            
             this.playNextTrack(); 
         });
     }
     
+    dummy() {
+        alert('dummy function');
+    }
+
     resetTrackVariables() {
             this.currentTrackPosition = 0;
             this.activeTrack = new ActiveTrack();
@@ -72,23 +93,40 @@ export class PlayerComponent implements OnInit, OnDestroy {
         })
     }
     trackPositionChanged(newTrackPosition: number) {
-        this.webAudioHelper.startSourceNode(newTrackPosition);
-        this.playerHelper.startTracking(newTrackPosition, this.activeTrack.duration);
+        this.currentTrackPosition = Number(newTrackPosition);
+            
+        if(this.isPaused) {
+            this.pauseTrack();
+            return;
+        }
+        this.webAudioHelper.startSourceNode(this.currentTrackPosition);
+        this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
     }
+
+    trackVolumeChanged(newTrackVolume: string) {
+        debugger;
+        this.webAudioHelper.changeVolume(Number(newTrackVolume));
+    }
+
     resumeTrack() {
         this.webAudioHelper.startSourceNode(this.currentTrackPosition);
         this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
         this.isPaused = false;
-    }   
+   
+    }  
+
     pauseTrack() {
         this.webAudioHelper.stopSourceNode();
         this.playerHelper.stopTracking();
         this.isPaused = true;
+        
     }
+
     playPreviousTrack() {
         this.resetTrackVariables();
-       this.trackManager.setPreviousTrack();
+        this.trackManager.setPreviousTrack();
     }
+
     playNextTrack() {
         this.resetTrackVariables();
         this.trackManager.setNextTrack();

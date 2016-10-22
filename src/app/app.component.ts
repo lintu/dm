@@ -9,7 +9,13 @@ import '../../public/css/material-theme.css';
 })
 export class AppComponent { 
     public pages: Array<string>;
+    public selectedPage: number;
     constructor() {
-      this.pages = ['Tracks', 'Playlists', 'Artists', 'Upload'];
+      this.selectedPage = 0;
+      this.pages = ['Tracks', 'Playlists', 'Artists', 'Upload', 'Todos'];
+    }
+
+    pageSelected(index: number) {
+      this.selectedPage = index;
     }
 }

@@ -1,6 +1,21 @@
 body {
     background: red;
 }
+ /* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-60 { font-size: 60px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
 .app-container {
     position:absolute;
     top:0;
@@ -15,6 +30,9 @@ body {
 }
 .md-sidenav-content {
     overflow: hidden !important;
+}
+.fill-space {
+    flex: 1 1 auto;
 }
 /*sidenav*/
 
@@ -55,13 +73,25 @@ body {
     bottom: 0%;
     width: 96%;
     left: 2%;
-    background: #009688;
+    background: white;
 }
-.player-container .player-card {
-    background: yellow;
+.fit-in {
+    height: 100%;
+    width: 100%;
 }
-.player-image-tile {
-    background-size: contain; 
-    background-repeat: no-repeat; 
-    background-position: right 0px top 0px;
+.player-track-image {
+   height: 100% !important ; 
+   width: 40% !important; 
+   left: 0px !important;
+   position: absolute !important;
+}
+.player-track-visualiser {
+    height: 100% !important; 
+    width: 40% !important; 
+    left: 0px !important; 
+    position: absolute !important;
+}
+.player-container .control-button {
+    background: transparent;
+    border: 0px;
 }

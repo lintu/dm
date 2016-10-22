@@ -62,7 +62,7 @@ export class TrackManagerService {
         });
     }
 
-    public setNextTrack() {
+    setNextTrack() {
         for(var i=0,j = this.userTracks.length; i<j; i++) {
             if(this.userTracks[i].songId === this.activeTrackId) {
                 var nextSongIndex = i+1 == j ? 0 : i+1;
@@ -72,7 +72,7 @@ export class TrackManagerService {
         }
     }
     
-    public setPreviousTrack() {
+    setPreviousTrack() {
         for(var i=0,j = this.userTracks.length; i<j; i++) {
             if(this.userTracks[i].songId === this.activeTrackId) {
                 var previousSongIndex = i-1 == -1 ? j-1 : i-1;
