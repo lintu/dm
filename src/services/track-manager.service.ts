@@ -15,7 +15,7 @@ export class TrackManagerService {
 
     public userTracks: Array<Track>;
     public activeTrack: ActiveTrack;
-
+    public activeTrackId: string;
     public activePlaylist: string;
 
     constructor(public firebaseHelper: FirebaseHelperService) {
@@ -30,8 +30,7 @@ export class TrackManagerService {
             if(loginDetails['isLoggedIn']) {
                 this.startUserTracksSubscription();
                 this.startUserPlaylistSubscription();
-            }
-            else {
+            } else {
                 this.stopUserTracksSubscription();
             }
         });
@@ -39,6 +38,7 @@ export class TrackManagerService {
 
     setActiveTrack(track: Track) {
         this.activeTrack = new ActiveTrack(track);
+        this.activeTrackId = this.activeTrack.songId;
         this.activeTrackChangeSubject$.next(this.activeTrack);
     }
 
@@ -60,5 +60,25 @@ export class TrackManagerService {
             this.userTracks = userSongs;
             this.userTrackListChangeSubject$.next(this.userTracks);
         });
+    }
+
+    public setNextTrack() {
+        for(var i=0,j = this.userTracks.length; i<j; i++) {
+            if(this.userTracks[i].songId === this.activeTrackId) {
+                var nextSongIndex = i+1 == j ? 0 : i+1;
+                this.setActiveTrack(this.userTracks[nextSongIndex]);
+                break;
+            }
+        }
+    }
+    
+    public setPreviousTrack() {
+        for(var i=0,j = this.userTracks.length; i<j; i++) {
+            if(this.userTracks[i].songId === this.activeTrackId) {
+                var previousSongIndex = i-1 == -1 ? j-1 : i-1;
+                this.setActiveTrack(this.userTracks[previousSongIndex]);
+                break;
+            }
+        }
     }
 }

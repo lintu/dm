@@ -1,22 +1,22 @@
 <div class="player-container">
 	<md-grid-list cols="6" rowHeight="60px">
-		<md-grid-tile [colspan]="5" [rowspan]="1" [style.background]="red">
+		<md-grid-tile [colspan]="5" [rowspan]="1" >
 			<input #seeker type="range" min="0" [max]="activeTrack.duration" [value]="currentTrackPosition" (change)="trackPositionChanged(seeker.value)"
 			/>
 		</md-grid-tile>
 		<md-grid-tile [colspan]="1" [rowspan]="2" class="player-image-tile" [style.background-image]="activeTrack.thumbUrl | safeurl">
 		</md-grid-tile>
 		<md-grid-tile [colspan]="3" [rowspan]="1" [style.background]="blue">
-			<button class="btn" type="button" (click)="playPreviousTrack()">
+			<button  type="button" (click)="playPreviousTrack()">
     			<i class="material-icons center">skip_previous</i>
 			</button>
-			<button class="btn" type="button" *ngIf="isPaused" (click)="resumeTrack()">
+			<button  type="button" *ngIf="isPaused" (click)="resumeTrack()">
     			<i class="material-icons center">play_arrow</i>
 			</button>
-			<button class="btn" type="button" *ngIf="!isPaused" (click)="pauseTrack()">
+			<button  type="button" *ngIf="!isPaused" (click)="pauseTrack()">
     			<i class="material-icons center">pause</i>
 			</button>
-			<button class="btn" type="button" (click)="playNextTrack()">
+			<button type="button" (click)="playNextTrack()">
     			<i class="material-icons center">skip_next</i>
 			</button>
 		</md-grid-tile>

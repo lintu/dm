@@ -10,8 +10,10 @@ export class TodoService {
     public todoListSubscription: Subscription;
     public todoListSubject$: Subject<Array<Object>>;
     constructor(public firebaseHelper: FirebaseHelperService) { 
+        this.todoList = [];
         this.todoListSubject$ = new Subject<Array<Object>>();
         this.todoListSubscription = this.firebaseHelper.todoListSubject$.subscribe(todos=>{
+            this.todoList = todos;
             this.todoListSubject$.next(todos);
         });
         this.firebaseHelper.startTodoSubscription();

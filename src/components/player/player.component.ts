@@ -17,6 +17,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     public currentTrackPosition: number;
     public trackPositionChangedSubscription: Subscription;
     public activeTrackChangedSubscription: Subscription;
+    public trackPlayEndedSubscription: Subscription;
     public isPaused: Boolean;
     constructor(
         public trackManager: TrackManagerService, 
@@ -28,6 +29,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.activeTrack = new ActiveTrack();
         this.trackPositionChangedSubscription = new Subscription();
         this.activeTrackChangedSubscription = new Subscription();
+        this.trackPlayEndedSubscription = new Subscription();
         this.isPaused = true;
     }
 
@@ -36,8 +38,20 @@ export class PlayerComponent implements OnInit, OnDestroy {
             this.activeTrack = activeTrack;
             this.playActiveTrack();
         });
+        this.trackPlayEndedSubscription = this.playerHelper.trackPlayEnded$.subscribe(()=> {
+            this.resetTrackVariables();
+            
+            this.playNextTrack(); 
+        });
     }
     
+    resetTrackVariables() {
+            this.currentTrackPosition = 0;
+            this.activeTrack = new ActiveTrack();
+            this.webAudioHelper.stopSourceNode();
+            this.isPaused = true;
+            this.trackPositionChangedSubscription.unsubscribe();
+    }
     playActiveTrack() {
         this.dataService.fetchTrack(this.activeTrack.songUrl).then((audioBuffer) => {
             this.webAudioHelper.processSongArrayBuffer(audioBuffer).then((buffer)=>{
@@ -45,7 +59,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 this.activeTrack.durationText = new SecondsToDurationPipe().transform(this.activeTrack.duration, []);
                 var startFrom = 0;
                 this.webAudioHelper.startSourceNode(startFrom);
-                this.playerHelper.startTracking(startFrom);
+                this.playerHelper.startTracking(startFrom, this.activeTrack.duration);
                 this.isPaused = false;
                 this.trackPositionChangedSubscription = this.playerHelper.trackPositionChanged$.subscribe((newPosition) => {
                     this.currentTrackPosition = newPosition;
@@ -59,11 +73,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }
     trackPositionChanged(newTrackPosition: number) {
         this.webAudioHelper.startSourceNode(newTrackPosition);
-        this.playerHelper.startTracking(newTrackPosition);
+        this.playerHelper.startTracking(newTrackPosition, this.activeTrack.duration);
     }
     resumeTrack() {
         this.webAudioHelper.startSourceNode(this.currentTrackPosition);
-        this.playerHelper.startTracking(this.currentTrackPosition);
+        this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
         this.isPaused = false;
     }   
     pauseTrack() {
@@ -72,14 +86,17 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.isPaused = true;
     }
     playPreviousTrack() {
-
+        this.resetTrackVariables();
+       this.trackManager.setPreviousTrack();
     }
     playNextTrack() {
-
+        this.resetTrackVariables();
+        this.trackManager.setNextTrack();
     }
 
     ngOnDestroy() { 
         this.activeTrackChangedSubscription.unsubscribe();
         this.trackPositionChangedSubscription.unsubscribe();
+        this.trackPlayEndedSubscription.unsubscribe();
     }
 }

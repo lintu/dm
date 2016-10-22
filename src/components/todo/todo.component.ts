@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 
 @Component({
@@ -11,10 +11,12 @@ export class TodoComponent implements OnInit {
         this.todoList = [];
         this.todoService.todoListSubject$.subscribe(todos=>{
             this.todoList = todos;
-        })
+        });
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        this.todoList = this.todoService.todoList;
+    }
     changeStatus(todo: any) {
         this.todoService.updateStatus(todo);
     }
@@ -23,5 +25,8 @@ export class TodoComponent implements OnInit {
     }
     removeTodo(todo: any) {
         this.todoService.removeTodo(todo);
+    }
+    ngOnDestroy() {
+        this.todoList = [];
     }
 }
