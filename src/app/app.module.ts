@@ -9,6 +9,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { TrackListComponent } from '../components/tracklist/tracklist.component';
 import { PlayerComponent } from '../components/player/player.component';
 import { TodoComponent } from '../components/todo/todo.component';
+import { DurrrComponent } from '../components/durrr/durrr.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
 import { FirebaseHelperService} from '../services/firebase-helper.service';
@@ -44,6 +45,7 @@ const myFirebaseAuthConfig = {
     TrackListComponent,
     PlayerComponent,
     TodoComponent,
+    DurrrComponent,
     SafeUrlPipe,
     SecondsToDurationPipe
   ],

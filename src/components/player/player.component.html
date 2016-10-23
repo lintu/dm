@@ -2,17 +2,19 @@
 <div class="player-container"  [@visibilityState]="visibilityState">
 	<!--<md-slider tick-interval="1" step="1" min="0" [value]="currentTrackPosition" max="100" (change)="dummy();"></md-slider>-->
 	<md-grid-list cols="12" rowHeight="25px">
-		<md-grid-tile  [style.background]="red" [colspan]="2" [rowspan]="3" class="player-image-tile">
+		<md-grid-tile  [colspan]="2" [rowspan]="3" >
 			
 			<div style="height: 100%; width: 40%; left: 0px; position: absolute;">
 				<img class="fit-in" src="{{activeTrack.thumbUrl}}"></div>
 			<div style="height: 100%; width: 60%; right: 0px; position: absolute;">
-				<img class="fit-in" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ83SbxVQhrDEilWHVIPEPOlp8d6l92SUeCBKVIS3tOMenXo4ai">
+				<durrr></durrr>
+				
 			</div>
 			
 		</md-grid-tile>
 		<md-grid-tile  [colspan]="1" [rowspan]="1"  >
-			<span style="top: 5px; position: relative;">{{currentTrackPosition | secondsToDuration}}</span>
+
+			<div style="top: 5px; position: relative;">{{currentTrackPosition | secondsToDuration}}</div>
 		</md-grid-tile>
 		<md-grid-tile  [colspan]="8" [rowspan]="1"  >
 			<span class="fit-in">
@@ -23,20 +25,26 @@
 		<md-grid-tile  [colspan]="1" [rowspan]="1"  >
 			<span style="top: 5px; position: relative;">{{activeTrack.durationText}}</span>
 		</md-grid-tile>
+		<md-grid-tile  [colspan]="1" [rowspan]="1"  >
+			
+		</md-grid-tile>
 		<md-grid-tile  [colspan]="3" [rowspan]="2"  >
-			<div >
+			<div>
 				<div style="white-space: nowrap; ">{{activeTrack.title}}</div>
 				<div style="white-space: nowrap; ">{{activeTrack.artist}}</div>
 			</div>
 		</md-grid-tile>
-		<md-grid-tile  [colspan]="5" [rowspan]="2" >
+		<md-grid-tile  [colspan]="4" [rowspan]="2" >
 			<button md-mini-fab (click)="playPreviousTrack()" ><md-icon>skip_previous</md-icon></button>
 			<button md-mini-fab *ngIf="isPaused" (click)="resumeTrack()" ><md-icon>play_arrow</md-icon></button>
 			<button md-mini-fab *ngIf="!isPaused" (click)="pauseTrack()" ><md-icon>pause</md-icon></button>
 			<button md-mini-fab (click)="playNextTrack()" ><md-icon>skip_next</md-icon></button>
 		</md-grid-tile>
-		<md-grid-tile  [colspan]="2" [rowspan]="2"  >
+		<md-grid-tile  [colspan]="1" [rowspan]="2"  >
 			<input #volumeControl type="range" min="0" max="10" [value]="trackVolume" (change)="trackVolumeChanged(volumeControl.value)" />
+			
+		</md-grid-tile>
+		<md-grid-tile  [colspan]="1" [rowspan]="2"  >
 			<button  class="control-button">
     			<i class="material-icons center">loop</i>
 			</button>

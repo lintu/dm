@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class WebAudioHelperService {
@@ -9,19 +9,33 @@ export class WebAudioHelperService {
     public audioBuffer: AudioBuffer;
     public sourceNode: AudioBufferSourceNode;
     public gainNode: GainNode;
-
+    public analyserNode: AnalyserNode;
+    public static analyserFrequencyData: Uint8Array;
+    public static analyserTimeDomainData: Uint8Array;
+    public static analyserBufferLength: number;
+    public sourceStatusChanged$: Subject<boolean>;
 
     constructor() {
+        this.sourceStatusChanged$ = new Subject<boolean>();
         WebAudioHelperService.audioContext = new AudioContext();
         //this.audioBuffer = new AudioBuffer(); // TODO throws an error
         this.sourceNode = WebAudioHelperService.audioContext.createBufferSource();
         this.gainNode = WebAudioHelperService.audioContext.createGain();
+        this.analyserNode = WebAudioHelperService.audioContext.createAnalyser();
+        this.analyserNode.fftSize = 2048;
+        this.analyserNode.smoothingTimeConstant = 0.3;
         this.connectAudioNodes();
+
+        WebAudioHelperService.analyserBufferLength = this.analyserNode.frequencyBinCount;
+        WebAudioHelperService.analyserFrequencyData = new Uint8Array(WebAudioHelperService.analyserBufferLength);
+        WebAudioHelperService.analyserTimeDomainData = new Uint8Array(WebAudioHelperService.analyserBufferLength);
     }
 
     private connectAudioNodes() {
         this.sourceNode.connect(this.gainNode);
-        this.gainNode.connect(WebAudioHelperService.audioContext.destination);
+        this.gainNode.connect(this.analyserNode);
+
+        this.analyserNode.connect(WebAudioHelperService.audioContext.destination);
     }
 
     processSongArrayBuffer(audioData: ArrayBuffer) : Promise<AudioBuffer> {
@@ -51,10 +65,18 @@ export class WebAudioHelperService {
         this.sourceNode.buffer = this.audioBuffer;
         this.sourceNode.connect(this.gainNode);
         this.sourceNode.start(0, startFrom);
+        this.sourceStatusChanged$.next(true);
     }
     stopSourceNode() {
         if (this.sourceNode.buffer) {
             this.sourceNode.stop();
         }
+        this.sourceStatusChanged$.next(false); 
+    }
+    setTimeDomainData() {
+        return this.analyserNode.getByteTimeDomainData(WebAudioHelperService.analyserTimeDomainData);
+    }
+    setFrequencyData() {
+        return this.analyserNode.getByteFrequencyData(WebAudioHelperService.analyserFrequencyData);
     }
 }

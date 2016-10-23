@@ -104,7 +104,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }
 
     trackVolumeChanged(newTrackVolume: string) {
-        debugger;
         this.webAudioHelper.changeVolume(Number(newTrackVolume));
     }
 
@@ -112,14 +111,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.webAudioHelper.startSourceNode(this.currentTrackPosition);
         this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
         this.isPaused = false;
-   
     }  
 
     pauseTrack() {
         this.webAudioHelper.stopSourceNode();
         this.playerHelper.stopTracking();
         this.isPaused = true;
-        
     }
 
     playPreviousTrack() {

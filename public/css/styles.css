@@ -1,6 +1,4 @@
-body {
-    background: red;
-}
+
  /* Rules for sizing the icon. */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
@@ -52,7 +50,6 @@ body {
     height: 100%;
     width: 100%;
     background: none;
-    color: rebeccapurple;
 }
 
 .track-grid-content {
@@ -73,7 +70,7 @@ body {
     bottom: 0%;
     width: 96%;
     left: 2%;
-    background: white;
+    background: #3D3D3D;
 }
 .fit-in {
     height: 100%;
@@ -95,3 +92,6 @@ body {
     background: transparent;
     border: 0px;
 }
+.player-container md-grid-tile figure {
+    justify-content: flex-start !important;
+} 
