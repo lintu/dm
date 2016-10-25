@@ -1,7 +1,12 @@
 <div class="tracklist-container">
+<div class="loader-container">
+  <md-progress-circle mode="indeterminate" color="accent"></md-progress-circle>
+</div>
+
 <md-grid-list cols="6" >
 	<md-grid-tile *ngFor="let track of trackList" [style.background-image]="track.thumbUrl | safeurl" class="track-grid-tile">
 		<md-card class="track-grid-card">
+      
 			<div class="trip-grid-content">
         <md-card-header class="track-grid-header">
         <md-card-title>{{track.title}}</md-card-title>

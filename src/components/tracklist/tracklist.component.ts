@@ -8,10 +8,13 @@ import {Track } from '../../classes/track';
 })
 export class TrackListComponent implements OnInit, OnDestroy {
     public trackList:Array<Track>;
-    
-    constructor(public trackManagerService: TrackManagerService) { 
+    public showLoader: Boolean;
+
+    constructor(public trackManagerService: TrackManagerService) {
+        this.showLoader = true; 
         this.trackList = [];
         this.trackManagerService.userTrackListChangeSubject$.subscribe((songList) => {
+            this.showLoader = false;
             this.trackList = songList;
         });
     }

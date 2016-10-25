@@ -19,7 +19,7 @@ export class LoginComponent implements OnDestroy{
         this.profileImgUrl = '../../../resources/default-user.png';
         this.username = 'Guest';
         this.loginSubscription = this.firebase.loginSubject$.subscribe(loginDetails => {
-            
+            debugger;
             if(loginDetails['isLoggedIn']) {
                 this.isLoggedIn = true;
                 this.username = loginDetails['displayName'];

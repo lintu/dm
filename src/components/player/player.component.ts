@@ -10,7 +10,7 @@ import { Subscription} from 'rxjs/Subscription';
 @Component({
     selector: 'player',
     templateUrl: 'player.component.html',
-    providers: [WebAudioHelperService, PlayerHelperService],
+    providers: [ PlayerHelperService],
     animations: [
     trigger('visibilityState', [
       state('hide', style({
@@ -33,13 +33,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
     public isPaused: Boolean;
     public visibilityState: string;
     public trackVolume: number;
-
+    public isLoading: Boolean;
     constructor(
         public trackManager: TrackManagerService, 
         public dataService: DataService, 
         public webAudioHelper: WebAudioHelperService,
         public playerHelper: PlayerHelperService,
     ) {
+        this.isLoading = false;
         this.trackVolume = 10;
         this.currentTrackPosition = 0;
         this.activeTrack = new ActiveTrack();
@@ -74,11 +75,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
             this.trackPositionChangedSubscription.unsubscribe();
     }
     playActiveTrack() {
+        this.isLoading = true;
         this.dataService.fetchTrack(this.activeTrack.songUrl).then((audioBuffer) => {
             this.webAudioHelper.processSongArrayBuffer(audioBuffer).then((buffer)=>{
                 this.activeTrack.duration = Math.floor(buffer.duration);
                 this.activeTrack.durationText = new SecondsToDurationPipe().transform(this.activeTrack.duration, []);
                 var startFrom = 0;
+                this.isLoading = false;
                 this.webAudioHelper.startSourceNode(startFrom);
                 this.playerHelper.startTracking(startFrom, this.activeTrack.duration);
                 this.isPaused = false;

@@ -1,10 +1,17 @@
-<md-card>
-   <md-card-title-group>
-      <img md-card-sm-image src="{{profileImgUrl}}">
-      <md-card-title>{{ username }}</md-card-title>
-      
-   </md-card-title-group>
-    <button type="button" *ngIf="!isLoggedIn" (click)="loginWithGoogle()">Google Login</button>
-	<button type="button" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+<md-card style="background: #3D3D3D; padding: 10px;">
+ 
+   <md-card-content align="center">
+       <img md-card-sm-image src="{{profileImgUrl}}" style="border-radius: 50%;">
+       <hr style="border: 1px solid #E84C3D; margin: 10% 0%;">
+       {{ username }}
+   </md-card-content>
+   <md-card-actions align="center" style="margin-bottom: 0px;">
+       <button md-raised-button color="accent" *ngIf="!isLoggedIn" (click)="loginWithGoogle()">
+           <md-icon class="md-24">power_settings_new</md-icon>
+       </button>
+       <button md-raised-button color="accent" *ngIf="isLoggedIn" (click)="logout()">
+           <md-icon class="md-24">power_settings_new</md-icon>
+       </button>
+   </md-card-actions>
 </md-card>
 

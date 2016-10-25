@@ -2,6 +2,9 @@
 <div class="player-container"  [@visibilityState]="visibilityState">
 	<!--<md-slider tick-interval="1" step="1" min="0" [value]="currentTrackPosition" max="100" (change)="dummy();"></md-slider>-->
 	<md-grid-list cols="12" rowHeight="25px">
+		<md-grid-tile [colspan]="12" *ngIf="isLoading">
+			<md-progress-bar mode="indeterminate" color="accent"></md-progress-bar>
+		</md-grid-tile>
 		<md-grid-tile  [colspan]="2" [rowspan]="3" >
 			
 			<div style="height: 100%; width: 40%; left: 0px; position: absolute;">

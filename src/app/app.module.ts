@@ -13,6 +13,7 @@ import { DurrrComponent } from '../components/durrr/durrr.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
 import { FirebaseHelperService} from '../services/firebase-helper.service';
+import { WebAudioHelperService} from '../services/webaudio-helper.service';
 import { TrackManagerService } from '../services/track-manager.service';
 import { DataService } from '../services/data.service';
 import { TodoService } from '../services/todo.service';
@@ -53,6 +54,7 @@ const myFirebaseAuthConfig = {
     UserData, 
     UploadService, 
     FirebaseHelperService, 
+    WebAudioHelperService,
     TrackManagerService, 
     DataService,
     TodoService
