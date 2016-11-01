@@ -13,7 +13,9 @@
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
+md-card {
+    color: white !important;
+}
 .app-container {
     position:absolute;
     top:0;
@@ -48,7 +50,10 @@
 /*Upload Component*/
 .upload-card {
     max-width: 250px;
+   
 }
+
+
 /*For grid tile track item*/
 .tracklist-container {
     padding: 5px;

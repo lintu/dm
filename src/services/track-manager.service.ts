@@ -18,6 +18,8 @@ export class TrackManagerService {
     public activeTrackId: string;
     public activePlaylist: string;
 
+    public initialFetchDone: boolean;
+
     constructor(public firebaseHelper: FirebaseHelperService) {
         this.userTracks = [];
         this.userTracksSubscription = new Subscription();
@@ -25,6 +27,7 @@ export class TrackManagerService {
         this.userTrackListChangeSubject$ = new Subject<Array<Track>>();
         this.activeTrackChangeSubject$ = new Subject<ActiveTrack>();
         this.activePlaylist = 'default';
+        this.initialFetchDone = false;
 
         this.loginSubscription = this.firebaseHelper.loginSubject$.subscribe((loginDetails) => {
             if(loginDetails['isLoggedIn']) {
@@ -52,6 +55,7 @@ export class TrackManagerService {
         this.userTracksSubscription = this.firebaseHelper.userSongsSubject$.subscribe((userSongs) => {
             this.userTracks = userSongs;
             this.userTrackListChangeSubject$.next(this.userTracks);
+            this.initialFetchDone = true;
         });
     }
 

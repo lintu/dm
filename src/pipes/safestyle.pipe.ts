@@ -8,6 +8,9 @@ export class SafeUrlPipe implements PipeTransform{
   }
 
   transform(style: any) {
+    if(style === '' || style === ' ') {
+      return '';
+    }
     return this.sanitizer.bypassSecurityTrustStyle('url(' +style + ')');
   }
 }

@@ -1,12 +1,33 @@
-<input type="file" (change)="fileChangeHandler($event)"> Select file to upload
-<md-card class="upload-card">
+<md-card class="upload-card" style="background: #3D3D3D; padding: 10px;">
+	<div style="text-align: center;">Upload Track</div>
+	<div style="padding-top: 5%;">
+		<input type="file" (change)="fileChangeHandler($event)" style="display:none" id="uploadInput">
+		<label for="uploadInput"> 
+                <div style="width: 100%; background: #E84C3D; text-align: center; cursor:pointer; border-radius: 3px; color: white;">
+                 <div style="height: 7px"></div>
+                 <span>Select Track</span>
+                 <div style="height: 7px"></div>
+                </div>
+        </label>
+	</div>
 
+	
+	<!--<md-card-subtitle>{{selectedFileTags.artist}}</md-card-subtitle>
+                <md-card-subtitle>{{selectedFileTags.album}}</md-card-subtitle>
+        -->
+        <div style="padding: 10%; background:{{selectedFileTags.picture | safeurl }}" >
+                <!--<img md-card-lg-image src="{{selectedFileTags.picture}}">-->
+        </div>
         <md-card-title>{{selectedFileTags.title}}</md-card-title>
-        <!--<md-card-subtitle>{{selectedFileTags.artist}}</md-card-subtitle>
-        <md-card-subtitle>{{selectedFileTags.album}}</md-card-subtitle>
-   -->
-   <img md-card-image src="{{selectedFileTags.picture}}"  height="60">
-   <md-card-actions>
-        <button md-button (click)="upload()">Upload</button>
-   </md-card-actions>
+	<input *ngIf="uploadProgress.status !== 'stopped'" #uploadProgressRange type="range" min="0" max="100" [value]="uploadProgress.progress"
+	/>
+	<!--<md-progress-circle mode="determinate" color="accent" [value]="uploadProgress.progress">
+                yhtyjtyjgjy
+        </md-progress-circle>-->
+	<md-card-actions class="track-grid-actions">
+                <button md-fab style="color: white;" (click)="upload()">
+                <md-icon class="md-24">backup</md-icon>
+        </button>
+
+	</md-card-actions>
 </md-card>

@@ -13,7 +13,7 @@ export class UploadService {
         this.newSongUploaded$ = new Subject<Track>();
     }
 
-    upload(file: File): Promise<Object> {
+    upload(file: File, progress: Object): Promise<Object> {
 
         let userId = this.userData.getUserId();
 
@@ -43,7 +43,8 @@ export class UploadService {
 
             xhr.onprogress = function(event) {
                 if(event.lengthComputable) {
-                    console.log("Progress: " + Math.round((event.loaded / event.total)*100));
+                    progress['status'] = 'started';
+                    progress['progress'] = Math.round((event.loaded / event.total)*100);
                 }
             }
         });

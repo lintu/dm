@@ -12,10 +12,14 @@ import { Track } from '../../classes/track';
 export class UploadComponent implements OnInit {
     public selectedFile: File;
     public selectedFileTags: Object;
-    
+    public uploadProgress: Object;
     
     constructor(public tagReader: TagReaderService, public uploadService: UploadService, public userData: UserData) {
        this.selectedFileTags = this.getDefaultTags();
+       this.uploadProgress = {
+           'progress': 0,
+           'status': 'stopped'
+       }
     }
 
     ngOnInit() {
@@ -23,35 +27,34 @@ export class UploadComponent implements OnInit {
     }
 
     fileChangeHandler(file: any) {
+        debugger;
         this.selectedFile = file.target.files[0];
         this.tagReader.getTags(this.selectedFile).then((tags)=> {
             this.selectedFileTags = tags;
+            
         }).catch(()=> {
-            this.selectedFileTags = this.getDefaultTags();
+            //to tag info present // show the editor to add tags
+            this.selectedFileTags = this.getDefaultTags(this.selectedFile.name.split('.mp3')[0]);
         });
         
     }
 
     upload() {
         if(this.selectedFile) {
-            this.uploadService.upload(this.selectedFile).then((song)=> {
+            this.uploadService.upload(this.selectedFile, this.uploadProgress).then((song)=> {
                alert('success');
-                //do stuff with song if required
                 
-                //upload success
-                //create an observable notifying new file uploaded
-                //create a firebase service which will subscribe to this event
-                //pass the response to the service
-                //service should put song details in firebase
-                //songs service should subscribe to the event from firebase and update song list
             }).catch((error)=> {
                 alert(error);
             });
+        } else {
+            alert('No file selected');
         }
     }
-    private getDefaultTags() {
+    
+    private getDefaultTags(fileName?: string) {
         return {
-           "title" : "No file selected",
+           "title" : fileName ? fileName : '',
            "artist": "Unknown",
            "album": "Unknown",
            "year": "Unknown",

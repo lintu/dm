@@ -1,5 +1,5 @@
 <div class="tracklist-container">
-<div class="loader-container">
+<div class="loader-container" *ngIf="showLoader">
   <md-progress-circle mode="indeterminate" color="accent"></md-progress-circle>
 </div>
 
@@ -13,7 +13,7 @@
           <md-card-subtitle>{{track.artist}}</md-card-subtitle>
         </md-card-header>
         <md-card-actions class="track-grid-actions" >
-          <button md-mini-fab (click)="playTrack(track)" ><md-icon>play_arrow</md-icon></button>
+          <button md-mini-fab class="btn" style="color: white;" (click)="playTrack(track)" ><md-icon>play_arrow</md-icon></button>
         </md-card-actions>
         </div>
 		</md-card>

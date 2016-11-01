@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     // @ViewChild("snackbar") snackbarRef: ViewContainerRef;
 
     constructor(public snackBar: MdSnackBar, public viewContainerRef: ViewContainerRef) {
-      this.selectedPage = 0;
+      this.selectedPage = 3;
       this.pages = [
         {title: 'Tracks', icon: 'queue_music'}, 
         {title: 'Playlists', icon: 'playlist_play'}, 
