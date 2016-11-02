@@ -1,7 +1,7 @@
-# lastresort
+# dm
 
-A seed project with angular2 with webpack and material design included.
-
+#master - A seed project with angular2 with webpack and material design included.
+#music-player - dm
 angular2 - www.angular.io
 
 webpack with angular - https://angular.io/docs/ts/latest/guide/webpack.html
