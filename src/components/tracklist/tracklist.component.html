@@ -2,12 +2,14 @@
 <div class="loader-container" *ngIf="showLoader">
   <md-progress-circle mode="indeterminate" color="accent"></md-progress-circle>
 </div>
-
+<div *ngIf="trackList.length == 0">
+Looks like you havent uploaded any songs yet. Go to upload panel to add a new song...
+</div>
 <md-grid-list cols="6" >
-	<md-grid-tile *ngFor="let track of trackList" [style.background-image]="track.thumbUrl | safeurl" class="track-grid-tile">
+  
+	<md-grid-tile *ngFor="let track of trackList" [style.background-image]="track.thumbUrl | fullpath | safeurl" class="track-grid-tile">
 		<md-card class="track-grid-card">
-      
-			<div class="trip-grid-content">
+      <div class="trip-grid-content">
         <md-card-header class="track-grid-header">
         <md-card-title>{{track.title}}</md-card-title>
           <md-card-subtitle>{{track.artist}}</md-card-subtitle>

@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Music",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --port 89",
+    "start": "webpack-dev-server --inline --progress --port 89 --DEV",
     "test": "karma start",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail --PROD",
+    "buildlocal": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail --DEV",
     "postinstall": "typings install"
   },
   "license": "MIT",
@@ -38,6 +39,7 @@
     "@types/hammerjs": "^2.0.33",
     "angular2-template-loader": "^0.4.0",
     "awesome-typescript-loader": "^2.2.4",
+    "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",

@@ -2,27 +2,32 @@
     <md-tab >
         <template md-tab-label>Tracks</template>
         <template md-tab-content >
-            <tracks></tracks>
-        </template>
-    </md-tab>
-    <md-tab >
-        <template md-tab-label>Playlists</template>
-        <template md-tab-content>
-            Playlists
-        </template>
-    </md-tab>
-    <md-tab >
-        <template md-tab-label>Artists</template>
-        <template md-tab-content>
-            Artists
+            <tracks *ngIf="isLoggedIn"></tracks>
+            <guest *ngIf="!isLoggedIn"></guest>
         </template>
     </md-tab>
     <md-tab >
         <template md-tab-label>Upload</template>
         <template md-tab-content>
-            <upload></upload>
+            <upload *ngIf="isLoggedIn"></upload>
+            <guest *ngIf="!isLoggedIn"></guest>
         </template>
     </md-tab>
+    <md-tab >
+        <template md-tab-label>Playlists</template>
+        <template md-tab-content>
+            Coming soon
+            <guest *ngIf="!isLoggedIn"></guest>
+        </template>
+    </md-tab>
+    <md-tab >
+        <template md-tab-label>Artists</template>
+        <template md-tab-content>
+            Coming soon
+            <guest *ngIf="!isLoggedIn"></guest>
+        </template>
+    </md-tab>
+    
     <md-tab >
         <template md-tab-label>Todos</template>
         <template md-tab-content>

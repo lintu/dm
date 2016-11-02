@@ -16,18 +16,18 @@ export class AppComponent implements OnInit {
     // @ViewChild("snackbar") snackbarRef: ViewContainerRef;
 
     constructor(public snackBar: MdSnackBar, public viewContainerRef: ViewContainerRef) {
-      this.selectedPage = 3;
+      this.selectedPage = 0;
       this.pages = [
         {title: 'Tracks', icon: 'queue_music'}, 
+        {title: 'Upload', icon: 'backup'}, 
         {title: 'Playlists', icon: 'playlist_play'}, 
         {title: 'Artists', icon: 'recent_actors'}, 
-        {title: 'Upload', icon: 'backup'}, 
         {title: 'Todo', icon: 'bug_report'}];
     }
     ngOnInit() {
       
     }
-
+    
     pageSelected(index: number) {
       this.selectedPage = index;
     }

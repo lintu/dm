@@ -33,7 +33,6 @@ export class FirebaseHelperService {
         this.userPlaylistsSubject$ = new Subject<Array<Playlist>>();
         
         this.loginSubscription = this.af.auth.subscribe(auth => {
-            
             if(auth) {
                 userData.setUserId(auth.auth['uid']);
                 auth.auth['isLoggedIn'] = true;

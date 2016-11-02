@@ -1,7 +1,8 @@
 <md-card style="background: #3D3D3D; padding: 10px;">
  
    <md-card-content align="center">
-       <img md-card-sm-image src="{{profileImgUrl}}" style="border-radius: 50%;">
+       <img *ngIf="isLoggedIn" md-card-sm-image src="{{profileImgUrl}}" style="border-radius: 50%;">
+       <img *ngIf="!isLoggedIn" md-card-sm-image src="{{profileImgUrl | fullpath}}" style="border-radius: 50%;">
        <hr style="border: 1px solid #E84C3D; margin: 10% 0%;">
        {{ username }}
    </md-card-content>

@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, enableProdMode } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
+import { EnvService } from '../services/env.service';
 import { AppComponent } from './app.component';
 import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 import { MaterialModule, MdListModule } from '@angular/material';
@@ -10,6 +11,7 @@ import { TrackListComponent } from '../components/tracklist/tracklist.component'
 import { PlayerComponent } from '../components/player/player.component';
 import { TodoComponent } from '../components/todo/todo.component';
 import { DurrrComponent } from '../components/durrr/durrr.component';
+import { GuestComponent } from '../components/guest/guest.component';
 import { UserData } from '../services/user-data.service';
 import { UploadService} from '../services/upload.service';
 import { FirebaseHelperService} from '../services/firebase-helper.service';
@@ -20,6 +22,8 @@ import { TodoService } from '../services/todo.service';
 import 'hammerjs'; 
 import { SafeUrlPipe } from '../pipes/safestyle.pipe';
 import { SecondsToDurationPipe } from '../pipes/seconds-to-duration.pipe';
+import { FullPathPipe } from '../pipes/fullpath.pipe';
+
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyDFPln30pb_nGg5z9dyjqLhxFRQO9CCZRo",
@@ -45,12 +49,15 @@ const myFirebaseAuthConfig = {
     LoginComponent,
     TrackListComponent,
     PlayerComponent,
+    GuestComponent,
     TodoComponent,
     DurrrComponent,
     SafeUrlPipe,
-    SecondsToDurationPipe
+    SecondsToDurationPipe,
+    FullPathPipe
   ],
   providers: [
+    EnvService,
     UserData, 
     UploadService, 
     FirebaseHelperService, 
@@ -64,3 +71,6 @@ const myFirebaseAuthConfig = {
 export class AppModule {
 
 }
+if(__PROD__) {
+  enableProdMode();
+} 

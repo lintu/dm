@@ -20,11 +20,10 @@ export class TagReaderService {
                             base64String += String.fromCharCode(allTags.picture.data[i]);
                         }
                         allTags.picture = "data:" + allTags.picture.format + ";base64," + window.btoa(base64String);
-
-                    } else {
-                        allTags.picture = '../../../resources/default-upload.png';
+                        } else {
+                        allTags.picture = '/default-upload.png';
                     }
-                    resolve(allTags)
+                    resolve(allTags);
                 },
                 onError: (error: any) => {
                     reject({});

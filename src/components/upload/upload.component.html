@@ -1,6 +1,8 @@
-<md-card class="upload-card" style="background: #3D3D3D; padding: 10px;">
-	<div style="text-align: center;">Upload Track</div>
-	<div style="padding-top: 5%;">
+<md-card class="upload-card" style="background: #3D3D3D; padding: 10px; color: white;">
+	<div style="text-align: center;">
+		<md-card-title>Upload Track</md-card-title>
+	</div>
+	<div [@fileSelect]="selectStatus">
 		<input type="file" (change)="fileChangeHandler($event)" style="display:none" id="uploadInput">
 		<label for="uploadInput"> 
                 <div style="width: 100%; background: #E84C3D; text-align: center; cursor:pointer; border-radius: 3px; color: white;">
@@ -11,23 +13,18 @@
         </label>
 	</div>
 
-	
-	<!--<md-card-subtitle>{{selectedFileTags.artist}}</md-card-subtitle>
-                <md-card-subtitle>{{selectedFileTags.album}}</md-card-subtitle>
-        -->
-        <div style="padding: 10%; background:{{selectedFileTags.picture | safeurl }}" >
-                <!--<img md-card-lg-image src="{{selectedFileTags.picture}}">-->
-        </div>
-        <md-card-title>{{selectedFileTags.title}}</md-card-title>
-	<input *ngIf="uploadProgress.status !== 'stopped'" #uploadProgressRange type="range" min="0" max="100" [value]="uploadProgress.progress"
-	/>
-	<!--<md-progress-circle mode="determinate" color="accent" [value]="uploadProgress.progress">
-                yhtyjtyjgjy
-        </md-progress-circle>-->
-	<md-card-actions class="track-grid-actions">
-                <button md-fab style="color: white;" (click)="upload()">
-                <md-icon class="md-24">backup</md-icon>
-        </button>
+	<div *ngIf="selectedFileTags">
+		<div style="padding: 10%;">
+			<img src="{{selectedFileTags.picture}}" style="min-height: 100%; min-width: 100%; max-height: 100%; max-width: 100%;">
+		</div>
+		<md-card-subtitle *ngIf="selectedFileTags">{{selectedFileTags.title}}</md-card-subtitle>
+		<input *ngIf="uploadProgress.progress != 0" #uploadProgressRange type="range" min="0" max="100" [value]="uploadProgress.progress"
+		/>
 
-	</md-card-actions>
+		<md-card-actions class="track-grid-actions">
+			<button md-fab style="color: white;" (click)="upload()">
+                                <md-icon class="md-24">backup</md-icon>
+                        </button>
+		</md-card-actions>
+	</div>
 </md-card>

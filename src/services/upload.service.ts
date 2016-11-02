@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserData } from './user-data.service';
 import { Subject } from 'rxjs/Subject';
 import { Track } from '../classes/track';
+import { EnvService } from '../services/env.service';
 
 //TODO : upload progress, scope inside promise function, image extraction
 
@@ -9,7 +10,7 @@ import { Track } from '../classes/track';
 @Injectable()
 export class UploadService {
     newSongUploaded$: Subject<Track>; // used in firebase helper service
-    constructor(public userData: UserData) {
+    constructor(public userData: UserData, public envService: EnvService) {
         this.newSongUploaded$ = new Subject<Track>();
     }
 
@@ -25,13 +26,12 @@ export class UploadService {
     
             var xhr = new XMLHttpRequest();
 
-            xhr.open('post', 'http://localhost:90/upload?userId='+ userId+ '', true);
+            xhr.open('post', this.envService.domain + '/upload?userId='+ userId+ '', true);
             xhr.send(fd);
 
             xhr.onreadystatechange =  ()=> {
                 if(xhr.readyState === XMLHttpRequest.DONE) {
                     if(xhr.status === 200) {
-                        
                         var song = new Track(JSON.parse(xhr.response));
                         this.newSongUploaded$.next(song);
                         resolve(song);
@@ -45,6 +45,7 @@ export class UploadService {
                 if(event.lengthComputable) {
                     progress['status'] = 'started';
                     progress['progress'] = Math.round((event.loaded / event.total)*100);
+                    console.log('progress: ' + progress['progress']);
                 }
             }
         });

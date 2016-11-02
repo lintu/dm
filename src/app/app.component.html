@@ -2,23 +2,18 @@
 
 <main style="height: 100%;">
 	<md-sidenav-layout style="height: 100%">
-		
+
 		<md-sidenav #start #mainnav mode="side" style="background-color: #3D3D3D; min-width: 20%; overflow-x: hidden;">
 			<login></login>
 			<md-nav-list>
-				<md-list-item *ngFor="let page of pages; let i = index;" (click)="pageSelected(i);mainnav.toggle()"> 
+				<md-list-item *ngFor="let page of pages; let i = index;" (click)="pageSelected(i);mainnav.toggle()">
 					<md-card style="width: 100%;background:none; height: 100%; padding: 10px; box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);">
-  					 <i class="material-icons">{{page.icon}}</i>
-					   <span>{{ page.title }}</span> 
-					    
-						28 tracks
-   						
+
+						<md-card-header>
+							<!--<i class="material-icons">{{page.icon}}</i>-->
+							<md-card-title>{{ page.title }}</md-card-title>
+						</md-card-header>
 					</md-card>
-					<!--<md-card-title-group>
-						<i class="material-icons">menu</i>
-						<md-card-title>Card with title</md-card-title>
-						<md-card-subtitle>Subtitle</md-card-subtitle>
-   					</md-card-title-group>-->
 				</md-list-item>
 			</md-nav-list>
 		</md-sidenav>
@@ -28,10 +23,10 @@
 			<button class="btn" (click)="mainnav.toggle()">
                 <i class="material-icons">menu</i>
             </button>
-			
+
 			<!-- This fills the remaining space of the current row -->
 			<span class="fill-space"></span>
-            <img src="../../resources/logo.png" style="height:100%;">
+			<img src="../../resources/logo.png" style="height:100%;">
 		</md-toolbar>
 		<main-tabs [selectedTab]="selectedPage"></main-tabs>
 		<!--<upload></upload>-->

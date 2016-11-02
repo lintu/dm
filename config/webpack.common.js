@@ -42,6 +42,10 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: JSON.stringify(JSON.parse(process.env.DEV || 'true')),
+      __PROD__: JSON.stringify(JSON.parse(process.env.PROD || 'false'))
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
     }),

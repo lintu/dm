@@ -8,15 +8,13 @@
 		<md-grid-tile  [colspan]="2" [rowspan]="3" >
 			
 			<div style="height: 100%; width: 40%; left: 0px; position: absolute;">
-				<img class="fit-in" src="{{activeTrack.thumbUrl}}"></div>
+				<img class="fit-in" src="{{activeTrack.thumbUrl | fullpath}}"></div>
 			<div style="height: 100%; width: 60%; right: 0px; position: absolute;">
 				<durrr></durrr>
-				
 			</div>
 			
 		</md-grid-tile>
 		<md-grid-tile  [colspan]="1" [rowspan]="1"  >
-
 			<div style="top: 5px; position: relative;">{{currentTrackPosition | secondsToDuration}}</div>
 		</md-grid-tile>
 		<md-grid-tile  [colspan]="8" [rowspan]="1"  >

@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-
 import { UserData} from '../../services/user-data.service';
 import { Subscription } from 'rxjs/Subscription';
 import { FirebaseHelperService } from '../../services/firebase-helper.service';
@@ -16,7 +15,7 @@ export class LoginComponent implements OnDestroy{
     isLoggedIn: boolean;
     private loginSubscription: Subscription;
     constructor(private userData: UserData, public firebase:FirebaseHelperService) {
-        this.profileImgUrl = '../../../resources/default-user.png';
+        this.profileImgUrl = 'default-user.png';
         this.username = 'Guest';
         this.loginSubscription = this.firebase.loginSubject$.subscribe(loginDetails => {
             if(loginDetails['isLoggedIn']) {
@@ -26,7 +25,7 @@ export class LoginComponent implements OnDestroy{
             } else {
                 this.isLoggedIn = false;
                 this.username = 'Guest user';
-                this.profileImgUrl = '../../../resources/default-user.png';
+                this.profileImgUrl = 'default-user.png';
             }
         });
     }
