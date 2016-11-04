@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate, ChangeDetectorRef } from '@angular/core';
 import { TagReaderService } from '../../services/tag-reader.service';
 import { UploadService } from '../../services/upload.service';
 import { UserData } from '../../services/user-data.service';
 import { Track } from '../../classes/track';
 import { EnvService } from '../../services/env.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'upload',
@@ -27,14 +28,17 @@ export class UploadComponent implements OnInit, OnDestroy {
     public selectedFileTags: Object;
     public uploadProgress: Object;
     public selectStatus: string;
+    public uploadProgressSubscription: Subscription;
 
-    constructor(public tagReader: TagReaderService, public uploadService: UploadService, public userData: UserData, public envService: EnvService) {
+    constructor(public tagReader: TagReaderService, 
+                public uploadService: UploadService, 
+                public userData: UserData, 
+                public envService: EnvService,
+                public changeDetectorRef: ChangeDetectorRef) {
         this.selectedFileTags = null;
         this.selectStatus = 'not-selected';
-        this.uploadProgress = {
-            'progress': 0,
-            'status': 'stopped'
-        }
+        this.uploadProgressSubscription = new Subscription();
+        this.uploadProgress = 0;
     }
 
     ngOnInit() {
@@ -61,9 +65,14 @@ export class UploadComponent implements OnInit, OnDestroy {
 
     upload() {
         if (this.selectedFile) {
-            this.uploadService.upload(this.selectedFile, this.uploadProgress).then((song) => {
+            this.uploadProgressSubscription = this.uploadService.uploadProgress$.subscribe((progress) => {
+                this.uploadProgress = progress;
+                this.changeDetectorRef.detectChanges();
+            })
+            this.uploadService.upload(this.selectedFile).then((song) => {
                 alert('song uploaded successfully. It is now available in tracks');
-                this.uploadProgress['progress'] = 0;
+                this.uploadProgressSubscription.unsubscribe();
+                this.uploadProgress = 0;
             }).catch((error) => {
                 alert(error);
             });

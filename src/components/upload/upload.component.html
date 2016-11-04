@@ -18,7 +18,7 @@
 			<img src="{{selectedFileTags.picture}}" style="min-height: 100%; min-width: 100%; max-height: 100%; max-width: 100%;">
 		</div>
 		<md-card-subtitle *ngIf="selectedFileTags">{{selectedFileTags.title}}</md-card-subtitle>
-		<input *ngIf="uploadProgress.progress != 0" #uploadProgressRange type="range" min="0" max="100" [value]="uploadProgress.progress"
+		<input *ngIf="uploadProgress != 0" #uploadProgressRange type="range" min="0" max="100" [value]="uploadProgress"
 		/>
 
 		<md-card-actions class="track-grid-actions">

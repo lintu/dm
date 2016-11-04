@@ -4,17 +4,21 @@ import { Subject } from 'rxjs/Subject';
 import { Track } from '../classes/track';
 import { EnvService } from '../services/env.service';
 
+
 //TODO : upload progress, scope inside promise function, image extraction
 
 
 @Injectable()
 export class UploadService {
     newSongUploaded$: Subject<Track>; // used in firebase helper service
+    uploadProgress$: Subject<number>;
+
     constructor(public userData: UserData, public envService: EnvService) {
+        this.uploadProgress$ = new Subject<number>();
         this.newSongUploaded$ = new Subject<Track>();
     }
 
-    upload(file: File, progress: Object): Promise<Object> {
+    upload(file: File): Promise<Object> {
 
         let userId = this.userData.getUserId();
 
@@ -25,9 +29,6 @@ export class UploadService {
             fd.append('userId', userId);
     
             var xhr = new XMLHttpRequest();
-
-            xhr.open('post', this.envService.domain + '/upload?userId='+ userId+ '', true);
-            xhr.send(fd);
 
             xhr.onreadystatechange =  ()=> {
                 if(xhr.readyState === XMLHttpRequest.DONE) {
@@ -41,13 +42,22 @@ export class UploadService {
                 }
             };
 
-            xhr.onprogress = function(event) {
-                if(event.lengthComputable) {
-                    progress['status'] = 'started';
-                    progress['progress'] = Math.round((event.loaded / event.total)*100);
-                    console.log('progress: ' + progress['progress']);
+            if(xhr.upload) {
+                xhr.onloadstart = (event) => {
+                   this.uploadProgress$.next(0);
+                }
+                xhr.upload.onprogress = (event) =>  {
+                    var progressPercentage =Math.round((event.loaded / event.total)*100); 
+                    this.uploadProgress$.next(progressPercentage);
                 }
             }
+
+            xhr.onprogress = function(event) {
+                
+            }
+
+            xhr.open('post', this.envService.domain + '/upload?userId='+ userId+ '', true);
+            xhr.send(fd);
         });
         return promise;
     }

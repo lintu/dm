@@ -9,8 +9,7 @@ export class TagReaderService {
     }
 
     getTags(file: File): Promise<Object> {
-        debugger;
-         return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             jsmediatags.read(file, {
                 onSuccess: (tag: any) => {
                     var allTags = tag.tags;

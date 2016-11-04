@@ -14,7 +14,6 @@ export class DataService {
     //if track is not present show alert
 
     fetchTrack(url: string): Promise<ArrayBuffer> {
-        debugger;
         return new Promise((resolve, reject) => {
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'arraybuffer';
