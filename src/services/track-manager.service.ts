@@ -40,6 +40,9 @@ export class TrackManagerService {
     }
 
     setActiveTrack(track: Track) {
+        if(this.activeTrack && this.activeTrack.songId == track.songId) {
+            return;
+        }
         this.activeTrack = new ActiveTrack(track);
         this.activeTrackId = this.activeTrack.songId;
         this.activeTrackChangeSubject$.next(this.activeTrack);

@@ -19,6 +19,7 @@ import { WebAudioHelperService} from '../services/webaudio-helper.service';
 import { TrackManagerService } from '../services/track-manager.service';
 import { DataService } from '../services/data.service';
 import { TodoService } from '../services/todo.service';
+import { SocketService } from '../services/socket.service';
 import 'hammerjs'; 
 import { SafeUrlPipe } from '../pipes/safestyle.pipe';
 import { SecondsToDurationPipe } from '../pipes/seconds-to-duration.pipe';
@@ -64,7 +65,8 @@ const myFirebaseAuthConfig = {
     WebAudioHelperService,
     TrackManagerService, 
     DataService,
-    TodoService
+    TodoService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

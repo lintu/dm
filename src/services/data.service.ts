@@ -8,11 +8,6 @@ export class DataService {
 
     }
 
-
-    //TODO
-    //mp3 url check 
-    //if track is not present show alert
-
     fetchTrack(url: string): Promise<ArrayBuffer> {
         return new Promise((resolve, reject) => {
             var xhr = new XMLHttpRequest();

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
+import { SocketService } from './socket.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class WebAudioHelperService {
@@ -7,6 +9,7 @@ export class WebAudioHelperService {
     //used in player helper service
     public static audioContext: AudioContext;
     public audioBuffer: AudioBuffer;
+    public arrayBuffer: ArrayBuffer;
     public sourceNode: AudioBufferSourceNode;
     public gainNode: GainNode;
     public analyserNode: AnalyserNode;
@@ -14,9 +17,11 @@ export class WebAudioHelperService {
     public static analyserTimeDomainData: Uint8Array;
     public static analyserBufferLength: number;
     public sourceStatusChanged$: Subject<boolean>;
+    public streamUpdatesSubscription: Subscription;
 
-    constructor() {
+    constructor(public socketService: SocketService) {
         this.sourceStatusChanged$ = new Subject<boolean>();
+        this.streamUpdatesSubscription = new Subscription();
         WebAudioHelperService.audioContext = new AudioContext();
         //this.audioBuffer = new AudioBuffer(); // TODO throws an error
         this.sourceNode = WebAudioHelperService.audioContext.createBufferSource();
@@ -38,24 +43,48 @@ export class WebAudioHelperService {
         this.analyserNode.connect(WebAudioHelperService.audioContext.destination);
     }
 
-    processSongArrayBuffer(audioData: ArrayBuffer) : Promise<AudioBuffer> {
-        
+    processSongUpdates(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
+        debugger;
         var promise = new Promise((resolve, reject) => {
-            try{
-                WebAudioHelperService.audioContext.decodeAudioData(audioData, buffer => {
-                    this.audioBuffer = buffer;
-                    resolve(buffer);
+            try {
+                this.arrayBuffer = this.appendBuffer(this.arrayBuffer, arrayBuffer);
+                WebAudioHelperService.audioContext.decodeAudioData(this.arrayBuffer, newBuffer => {
+                    this.audioBuffer = newBuffer;
+                    resolve(newBuffer);
                 });
-            } catch(error) {
+            } catch (error) {
                 reject(null)
             }
         });
-        
         return promise;
     }
 
+    processSongStart(audioData: ArrayBuffer): Promise<AudioBuffer> {
+debugger;
+        var promise = new Promise((resolve, reject) => {
+            try {
+                WebAudioHelperService.audioContext.decodeAudioData(audioData, buffer => {
+                    this.arrayBuffer = audioData;
+                    this.audioBuffer = buffer;
+                    resolve(buffer);
+                });
+            } catch (error) {
+                reject(null)
+            }
+        });
+
+        return promise;
+    }
+
+    appendBuffer(buffer1: any, buffer2: any) {
+        var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+        tmp.set(new Uint8Array(buffer1), 0);
+        tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+        return tmp.buffer;
+    }
+
     changeVolume(newVolume: number) {
-        var gainValue = newVolume == 0 ? 0.01: (newVolume/10);
+        var gainValue = newVolume == 0 ? 0.01 : (newVolume / 10);
         this.gainNode.gain.exponentialRampToValueAtTime(gainValue, WebAudioHelperService.audioContext.currentTime + .5);
     }
 
@@ -71,7 +100,7 @@ export class WebAudioHelperService {
         if (this.sourceNode.buffer) {
             this.sourceNode.stop();
         }
-        this.sourceStatusChanged$.next(false); 
+        this.sourceStatusChanged$.next(false);
     }
     setTimeDomainData() {
         return this.analyserNode.getByteTimeDomainData(WebAudioHelperService.analyserTimeDomainData);

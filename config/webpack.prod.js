@@ -30,6 +30,10 @@ module.exports = webpackMerge(commonConfig, {
         to: 'lib/jsmediatags.js'
       },
       {
+        from: 'lib/socket.io-1.4.5.js',
+        to: 'lib/socket.io-1.4.5.js'
+      },
+      {
         from: 'public/fonts/',
         to: 'public/fonts/'
       }
