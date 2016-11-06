@@ -35,6 +35,6 @@ export class PlayerHelperService {
             } else {
                 this.trackPositionChanged$.next(this.trackPosition);
             }
-        }, 900);
+        }, 1000);
     }
 }

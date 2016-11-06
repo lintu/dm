@@ -70,7 +70,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
         this.streamUpdadesSubscription = this.socketService.streamUpdates$.subscribe((arrayBuffer: ArrayBuffer) => {
             this.webAudioHelper.processSongUpdates(arrayBuffer).then((audioBuffer) => {
-                debugger;
                 this.activeTrack.duration = Math.floor(audioBuffer.duration);
                 this.activeTrack.durationText = new SecondsToDurationPipe().transform(this.activeTrack.duration, []);
 
