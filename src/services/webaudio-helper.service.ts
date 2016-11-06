@@ -44,7 +44,6 @@ export class WebAudioHelperService {
     }
 
     processSongUpdates(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
-        debugger;
         var promise = new Promise((resolve, reject) => {
             try {
                 this.arrayBuffer = this.appendBuffer(this.arrayBuffer, arrayBuffer);
@@ -60,7 +59,6 @@ export class WebAudioHelperService {
     }
 
     processSongStart(audioData: ArrayBuffer): Promise<AudioBuffer> {
-debugger;
         var promise = new Promise((resolve, reject) => {
             try {
                 WebAudioHelperService.audioContext.decodeAudioData(audioData, buffer => {

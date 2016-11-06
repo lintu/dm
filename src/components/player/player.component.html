@@ -46,8 +46,9 @@
 			
 		</md-grid-tile>
 		<md-grid-tile  [colspan]="1" [rowspan]="2"  >
-			<button  class="control-button">
-    			<i class="material-icons center">loop</i>
+			<button class="control-button" (click)="toggleLoop()">
+    			<i *ngIf="!isLooped" class="material-icons center">repeat</i>
+    			<i *ngIf="isLooped" class="material-icons center">repeat_one</i>
 			</button>
 		</md-grid-tile>
 	</md-grid-list>

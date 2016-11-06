@@ -16,7 +16,9 @@
 md-card {
     color: white !important;
 }
-
+[md-mini-fab] {
+    border-radius: 10% !important; 
+}
 .main-tabs-container {
     height: 90%;
 }

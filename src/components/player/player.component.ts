@@ -34,6 +34,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     public streamUpdadesSubscription: Subscription;
     public streamStartSubscription: Subscription;
     public isPaused: Boolean;
+    public isLooped: Boolean;
     public visibilityState: string;
     public trackVolume: number;
     public isLoading: Boolean;
@@ -54,6 +55,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.streamUpdadesSubscription = new Subscription();
         this.streamStartSubscription = new Subscription();
         this.isPaused = true;
+        this.isLooped = false;
         this.visibilityState = 'hide';
     }
 
@@ -61,21 +63,24 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.activeTrackChangedSubscription = this.trackManager.activeTrackChangeSubject$.subscribe((activeTrack) => {
             this.visibilityState = 'show';
             this.activeTrack = activeTrack;
+            this.isLoading = true;
         });
 
         this.trackPlayEndedSubscription = this.playerHelper.trackPlayEnded$.subscribe(() => {
-            this.resetTrackVariables();
-            this.playNextTrack();
+           if(this.isLooped) {
+                this.currentTrackPosition = 0;
+                
+                setTimeout(()=>{
+                    this.resumeTrack();
+                }, 500);
+            } else {
+                this.resetTrackVariables();
+                this.playNextTrack();
+            }
         });
 
         this.streamUpdadesSubscription = this.socketService.streamUpdates$.subscribe((arrayBuffer: ArrayBuffer) => {
-            this.webAudioHelper.processSongUpdates(arrayBuffer).then((audioBuffer) => {
-                this.activeTrack.duration = Math.floor(audioBuffer.duration);
-                this.activeTrack.durationText = new SecondsToDurationPipe().transform(this.activeTrack.duration, []);
-
-                this.webAudioHelper.startSourceNode(this.currentTrackPosition);
-                this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
-            });
+            this.updateActiveTrack(arrayBuffer);
         });
 
         this.streamStartSubscription = this.socketService.streamStart$.subscribe((arrayBuffer: ArrayBuffer) => {
@@ -83,6 +88,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
         });
     }
 
+    
     resetTrackVariables() {
         this.currentTrackPosition = 0;
         this.activeTrack = new ActiveTrack();
@@ -90,9 +96,20 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.isPaused = true;
         this.trackPositionChangedSubscription.unsubscribe();
     }
-    
+
+    updateActiveTrack(arrayBuffer: ArrayBuffer) {
+        this.webAudioHelper.processSongUpdates(arrayBuffer).then((audioBuffer) => {
+            this.activeTrack.duration = Math.floor(audioBuffer.duration);
+            this.activeTrack.durationText = new SecondsToDurationPipe().transform(this.activeTrack.duration, []);
+
+            if(!this.isPaused) {
+                this.webAudioHelper.startSourceNode(this.currentTrackPosition);
+                this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
+            }
+        });
+    }
+
     playActiveTrack(arrayBuffer: ArrayBuffer) {
-        debugger;
         this.isLoading = true;
         this.webAudioHelper.processSongStart(arrayBuffer).then((audioBuffer) => {
             this.activeTrack.duration = Math.floor(audioBuffer.duration);
@@ -129,7 +146,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.playerHelper.startTracking(this.currentTrackPosition, this.activeTrack.duration);
         this.isPaused = false;
     }
-
+    toggleLoop() {
+        this.isLooped = !this.isLooped;
+    }
     pauseTrack() {
         this.webAudioHelper.stopSourceNode();
         this.playerHelper.stopTracking();
@@ -145,27 +164,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.resetTrackVariables();
         this.trackManager.setNextTrack();
     }
-// playActiveTrack() {
-    //     this.isLoading = true;
-    //     this.dataService.fetchTrack(this.activeTrack.songUrl).then((audioBuffer) => {
-    //         this.webAudioHelper.processSongArrayBuffer(audioBuffer).then((buffer)=>{
-    //             this.activeTrack.duration = Math.floor(buffer.duration);
-    //             this.activeTrack.durationText = new SecondsToDurationPipe().transform(this.activeTrack.duration, []);
-    //             var startFrom = 0;
-    //             this.isLoading = false;
-    //             this.webAudioHelper.startSourceNode(startFrom);
-    //             this.playerHelper.startTracking(startFrom, this.activeTrack.duration);
-    //             this.isPaused = false;
-    //             this.trackPositionChangedSubscription = this.playerHelper.trackPositionChanged$.subscribe((newPosition) => {
-    //                 this.currentTrackPosition = newPosition;
-    //             });
-    //         }).catch(()=> {
-    //             alert('unable to process audio buffer');
-    //         })
-    //     }).catch((error)=> {
-    //         alert("unable to fetch track from server");
-    //     })
-    // }
+
     ngOnDestroy() {
         this.activeTrackChangedSubscription.unsubscribe();
         this.trackPositionChangedSubscription.unsubscribe();

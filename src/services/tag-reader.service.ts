@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { EnvService} from './env.service';
 
 declare var jsmediatags: any;
 @Injectable()
 export class TagReaderService {
     
-    constructor() {
+    constructor(public envService: EnvService) {
 
     }
 
@@ -20,7 +21,7 @@ export class TagReaderService {
                         }
                         allTags.picture = "data:" + allTags.picture.format + ";base64," + window.btoa(base64String);
                         } else {
-                        allTags.picture = '/default-upload.png';
+                        allTags.picture = this.envService.domain + "/default-upload.png"
                     }
                     resolve(allTags);
                 },
