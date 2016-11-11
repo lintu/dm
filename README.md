@@ -11,3 +11,5 @@ angularmaterial2 - https://github.com/angular/material2
 Inorder to create custom material theme follow the steps here https://github.com/angular/material2/blob/master/docs/theming.md#defining-a-custom-theme
 
 
+#todo
+separate material design and create a base with webpack starter.
